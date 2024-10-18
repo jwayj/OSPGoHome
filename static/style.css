@@ -1,0 +1,52 @@
+@font-face {
+    font-family: GmarketSans;
+    src: url(../static/fonts/GmarketSansTTF/GmarketSansTTFMedium.ttf) format('truetype');
+}
+@font-face {
+    font-family: GmarketSansBold;
+    src: url(../static/fonts/GmarketSansTTF/GmarketSansTTFBold.ttf) format('truetype');
+}
+
+.navbar {
+    background-color: cadetblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar__logo a{
+    font-family: GmarketSansBold;
+    font-size: x-large;
+    float: left;
+    color: antiquewhite;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar__menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+}
+.navbar__menu li{
+    margin-left: 10px;
+}
+.navbar__menu li a{
+    font-family: GmarketSans;
+    background-color: cadetblue;
+    color: antiquewhite;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
+}
+.navbar__menu li a:hover {
+    background-color: aquamarine;
+    border-radius: 3px;
+    color:burlywood;
+}
