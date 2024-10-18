@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block section %}
-<form action="/submit_item_post" method="post">
-<div><br><br>
+<form action="/submit_item_post" enctype="multipart/form-data" method="post">
+<div><br>
 <label for="name">Item name: </label>
 <input type="text" name="name" id="name" required><br><br>
 </div>
@@ -49,6 +49,11 @@
 <div>
 <label for="phone">Phone : </label>
 <input type="text" name="phone" id="phone"><br><br>
+</div>
+<!--상품 이미지 입력-->
+<div>
+    <label for="img">상품 이미지</label><br>
+    <input type="file" name="file" /><br><br>
 </div>
 <div>
 <input type="submit" value="Submit!"><br><br>

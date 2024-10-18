@@ -25,8 +25,12 @@ def reg_review():
 
 @application.route("/submit_item_post", methods=['POST'])
 def reg_item_submit_post():
+    
+    image_file=request.files["file"]
+    image_file.save(f"static/images/{image_file.filename}")
+    
     data=request.form
-    return render_template("result.html", data=data)
+    return render_template("result.html", data=data, img_path=f"static/images/{image_file.filename}")
  
 if __name__ == "__main__":
     application.run(host='0.0.0.0')
