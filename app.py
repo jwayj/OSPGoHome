@@ -16,6 +16,9 @@ def reg_item():
 @app.route("/reg_reviews")
 def reg_review():
     return render_template("reg_reviews.html")
+@app.route("/sign_up")
+def sign_up():
+    return render_template("sign_up.html")
 @app.route("/submit_item")
 def reg_item_submit():
     name=request.args.get("name")
