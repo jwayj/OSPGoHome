@@ -199,12 +199,14 @@ h2 {
     display: inline-block;
     margin-right: 10%;
     margin-bottom: 1%;
+    margin-top: 1%;
 }
 .form-row2{
     display: inline-block;
     padding: 1%;
     margin-right: 10%;
     margin-bottom: 1%;
+    margin-top: 1%;
 }
 .reviewId{
     padding-bottom: 1%;
@@ -216,11 +218,6 @@ h2 {
     padding-left: 10%;
 }
 
-
-.register_review{
-    display: inline-block;
-    margin-right: none;
-}
 
 .filter-bar {
     display: flex;
