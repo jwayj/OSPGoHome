@@ -1,7 +1,6 @@
 {% extends "index.html" %}
  {% block section %}
- <form>
-
+<form>
 <div class="form-row1">
     <div>
     <label for="reviwerId" class="reviewId">Reviwer ID: </label>
@@ -16,7 +15,7 @@
 <div class="form-row2">
     <div>  
     <label for="select-category" class="category">카테고리: </label>
-    <select id="select-category">
+    <select id="select-category" name="category">
        <option value="select" hidden>--카테고리 선택--</option>
        <option value="digital">디지털 기기</option>
        <option value="furniture">가구</option>
@@ -26,7 +25,7 @@
     </div>
     <div>
     <label for="select-status", class="status">상품 상태: </label>
-    <select id="select-status">
+    <select id="select-status" name="status">
         <option value="select" hidden>--상품 상태 선택--</option>
         <option value="notOpenedNew">미개봉 새 상품</option>
         <option value="notOpened">미개봉 상품</option>
@@ -59,19 +58,15 @@
  <input type="file" name="file" /><br><br>
 </div>
 <div class="register_review">
-    <input type="submit" clsss="register" value="등록하기" onclick="registerCheck()"><br><br>
-    <script>
-        function registerCheck(){
-            if(confirm("리뷰를 등록하시겠습니까?")==true){
-                document.register_review.submit();
-                alert("리뷰가 등록되었습니다.");
-            }
-            else{
-                return false;
-            }
-        }
-    </script>
+   <input type="submit" clsss="register" value="등록하기" onclick="registerCheck();"/><br><br>
 </div>
- </form>
+</form> 
+<script>
+    function registerCheck(){
+        if(confirm("리뷰를 등록하시겠습니까?")==true){
+            alert("리뷰가 등록되었습니다.");
+        }
+    }
+</script>
 
  {% endblock section %}
