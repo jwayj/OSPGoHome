@@ -23,13 +23,13 @@
     </select>
 </div>
 
-<main class="product-grid">
+<main class="post-list">
 
 {% for post in posts %}
-    <div class="product-item">
-        <img src="{{ url_for('static', filename=post.img_path) }}" alt={{post.product_name}}>
-        <div class="product-name">{{post.product_name}}</div>
-        <div class="product-price">₩{{post.product_price}}</div>
+    <div class="post-item">
+        <img src="{{ url_for('static', filename=post.img_path) }}" alt={{post.product_name}} class="rounded-img-small">
+        <div class="post-item text" style="font-size:21px; margin-top:5px">{{post.product_name}}</div>
+        <div class="post-item text" style="font-family:'GmarketSansLight'">₩{{post.product_price}}</div>
     </div>
 {% endfor %}
 
