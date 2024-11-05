@@ -1,14 +1,8 @@
 @font-face {
     font-family: 'GmarketSans';
     src: url('./fonts/GmarketSansTTF/GmarketSansTTFMedium.ttf') format('truetype');
-    font-family: GmarketSansLight;
-    src: url(../static/fonts/GmarketSansTTF/GmarketSansTTFLight.ttf) format('truetype');
 }
 
-@font-face {
-    font-family: GmarketSans;
-    src: url(../static/fonts/GmarketSansTTF/GmarketSansTTFMedium.ttf) format('truetype');
-}
 @font-face {
     font-family: 'GmarketSansBold';
     src: url('./fonts/GmarketSansTTF/GmarketSansTTFBold.ttf') format('truetype');
@@ -17,10 +11,6 @@
     font-family: 'GmarketSansLight';
     src: url('./fonts/GmarketSansTTF/GmarketSansTTFLight.ttf') format('truetype');
 }
-@font-face {
-    font-family: KoPubWorldDotumLight;
-    src: url(../static/fonts/KOPUBWORLD_TTF_FONTS-1/KoPubWorld\ Dotum\ Light.ttf)
-}
 
 @font-face {
     font-family: KoPubWorldDotum;
@@ -28,12 +18,9 @@
 }
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'GmarketSans';
     font-size: 15px;
-    box-sizing: border-box;
 }
 
 a {
