@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block section %}
+
+<div id="loginContainer">
+   <div id="loginMain">
+      <p>로그인</p>
+      <hr id="loginLine" size="4px" width="200px" color="#2E669E">
+   </div>
+   
+   <div id="loginInput">
+      <form method="post">
+         <input type="text" id="id" placeholder="아이디"><br>
+         <input type="password" id="pw" placeholder="비밀번호"><br><br>
+         <button class="loginBtn" type="submit">로그인</button>
+      </form>
+      <button class="loginBtn" onclick='location.href="/sign_up"'>
+         <a>회원가입</a>
+      </button>
+   </div>
+</div>
+
+{% endblock section %}
+         
