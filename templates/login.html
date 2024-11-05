@@ -1,63 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <html lang="en">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../static/style.css">
-        <script src="../static/main.js" defer></script>
-        <script src="../static/importHtml.js"></script>
-        <script src="https://kit.fontawesome.com/97098c5e7a.js" crossorigin="anonymous"></script>
-    </head>
-
-    <body>
-      <header id="header" class ="indexHeader">
-         <nav id="topBar">
-            <a href ="/home"><img src="../static/image/logo.png" title="로고" width="200px"></a>
-               <div id="search" style="height: 100%; width: 40%;">
-                  <form class="search_box">
-                     <input type="text" id="user-search" name="search" placeholder="SEARCH">
-                     <button type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                     </button>
-                  </form>
-               </div>
+{% extends "index.html" %}
+{% block section %}
+   <div id="header"></div>
+   <div id="loginContainer">
+      <div id="loginMain">
+         <p>로그인</p>
+         <hr id="loginLine" size="4px" width="200px" color="#2E669E">
+      </div>
       
-            <ul class = "top_menu">
-               <li><a href="login.html">로그인</a></li>
-               <li><a href="chat.html">메시지</a></li>
-            </ul>
-         </nav> 
-      
-         <nav class="menuBar">
-            <ul>
-               <li> <a href="/list">상품</a></li>
-               <li> <a href="/reg_items">상품 등록</a></li>
-               <li> <a href="/review">리뷰</a></li>
-               <li> <a href="/reg_review">리뷰 등록</a></li>
-            </ul>
-         </nav>  
-      </header>
-      
-         <div id="header"></div>
-         <div id="loginContainer">
-            <div id="loginMain">
-                <p>로그인</p>
-                <hr id="loginLine" size="4px" width="200px" color="#2E669E">
-            </div>
-            
-            <div id="loginInput">
-                <form method="post">
-                    <input type="text" id="id" placeholder="아이디"><br>
-                    <input type="password" id="pw" placeholder="비밀번호"><br><br>
-                    <button class="loginBtn" type="submit">로그인</button>
-                </form>
-                <button class="loginBtn">
-                    <a href="membership.html">회원가입</a>
-                </button>
-            </div>
-        </div>
-
-    </body>
-    
-</html>
+      <div id="loginInput">
+         <form method="post">
+            <input type="text" id="id" placeholder="아이디"><br>
+            <input type="password" id="pw" placeholder="비밀번호"><br><br>
+            <button class="loginBtn" type="submit">로그인</button>
+         </form>
+         <button class="loginBtn">
+            <a href="membership.html">회원가입</a>
+         </button>
+      </div>
+   </div>
+{% endblock section %}
+         
