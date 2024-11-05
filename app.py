@@ -1,7 +1,31 @@
+@app.route("/sign_up")
+def sign_up():
+    return render_template("sign_up.html")
 from flask import Flask, render_template, request
 import sys
 from flask_paginate import Pagination, get_page_args
 
+@app.route("/submit_item")
+def reg_item_submit():
+    name=request.args.get("name")
+    seller=request.args.get("seller")
+    addr=request.args.get("addr")
+    email=request.args.get("email")
+    category=request.args.get("category")
+    card=request.args.get("card")
+    status=request.args.get("status")
+    phone=request.args.get("phone")
+    print(name,seller,addr,email,category,card,status,phone)
+    #return render_template("reg_item.html")
+@app.route("/submit_item_post", methods=['POST'])
+def reg_item_submit_post():
+    image_file=request.files["file"]
+    image_file.save("static/images/{}".format(image_file.filename))
+    data=request.form
+    return render_template("submit_item_result.html", data=data,
+img_path="static/images/{}".format(image_file.filename))
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
 
 application = Flask(__name__)
 
