@@ -10,6 +10,137 @@
 * {
     font-family: GmarketSans;
     font-size: 15px;
+    box-sizing: border-box;
+}
+
+a {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h1 {
+    font-family: GmarketSansBold;
+    font-size: 30px;
+}
+
+h2 {
+    font-family: GmarketSansBold;
+    font-size: 21px;
+}
+
+.star {
+    content: '☆';
+    color: hsl(60, 80%, 45%);
+    font-size: 20px;
+}
+
+.rounded-img-small {
+    float: left;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px; /* 모서리 둥글게 */
+}
+
+.rounded-img-big {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 15px; /* 모서리 둥글게 */
+}
+
+/* 팝업 스타일 */
+.popup {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 배경 어둡게 */
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    z-index: 1000;
+}
+.popup img {
+    width:700px;
+}
+
+.review-small {
+    width: 200px;
+    margin: 2%;
+}
+
+.review-small .text {
+    margin: 0%;
+    padding: 2px;
+    width: 100%;
+    float:left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-list {
+    display: grid;
+    column-gap: 22px;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    row-gap: 40px;
+}
+@media screen and (max-width: 1100px) {
+    .item-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (max-width: 900px) {
+    .item-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media screen and (max-width: 700px) {
+    .item-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.pagination {
+    display: flex;
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 20px 0; /* 위아래 마진 설정 */
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.pagination li {
+    margin: 0 5px; /* 항목 간의 간격 */
+}
+
+.pagination a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    padding: 10px 15px; /* 패딩 추가 */
+    border: 1px solid #2E669E; /* 테두리 설정 */
+    border-radius: 5px; /* 둥근 모서리 */
+    color: #2E669E; /* 링크 색상 */
+    transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+}
+
+.pagination a:hover {
+    background-color: #2E669E; /* 호버 시 배경색 */
+    color: white; /* 호버 시 글자색 */
+}
+
+.pagination .current a {
+    background-color: #2E669E; /* 현재 페이지 배경색 */
+    color: white; /* 현재 페이지 글자색 */
+    border: none; /* 현재 페이지 테두리 제거 */
+}
+
+.pagination .unavailable {
+    display: none;
 }
 .star-rate{
     display: flex;
