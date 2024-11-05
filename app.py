@@ -1,31 +1,8 @@
-@app.route("/sign_up")
-def sign_up():
-    return render_template("sign_up.html")
+
 from flask import Flask, render_template, request
 import sys
 from flask_paginate import Pagination, get_page_args
 
-@app.route("/submit_item")
-def reg_item_submit():
-    name=request.args.get("name")
-    seller=request.args.get("seller")
-    addr=request.args.get("addr")
-    email=request.args.get("email")
-    category=request.args.get("category")
-    card=request.args.get("card")
-    status=request.args.get("status")
-    phone=request.args.get("phone")
-    print(name,seller,addr,email,category,card,status,phone)
-    #return render_template("reg_item.html")
-@app.route("/submit_item_post", methods=['POST'])
-def reg_item_submit_post():
-    image_file=request.files["file"]
-    image_file.save("static/images/{}".format(image_file.filename))
-    data=request.form
-    return render_template("submit_item_result.html", data=data,
-img_path="static/images/{}".format(image_file.filename))
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
 
 application = Flask(__name__)
 
@@ -35,7 +12,45 @@ def hello():
 
 @application.route("/list")
 def view_list():
-    return render_template("list.html")
+    page, per_page, offset = get_page_args(per_page=5)
+    # 현재 페이지, 페이지당 아이템 수, 현재 페이지는 몇 번째 아이템부터 보여주는가
+
+    # cur = get_cur()
+    # cur.execute("SELECT COUNT(*) FROM posts;")  # 일단 총 몇 개의 포스트가 있는지를 알아야합니다.
+    # total = cur.fetchone()[0]
+    # cur.execute(
+    #     "SELECT * FROM posts ORDER BY created "  # SQL SELECT로 포스트를 가져오되,
+    #     "DESC LIMIT %s OFFSET %s;",  # offset부터 per_page만큼의 포스트를 가져옵니다.
+    #     (per_page, offset),
+    # )
+    # posts = cur.fetchall()
+    posts_all = [
+    {'product_name': '디지털 카메라', 'img_path':'images/camera.png', 'product_price':'50,000'},
+    {'product_name': '간호학 전공책', 'img_path':'images/book.png', 'product_price':'50,00'},
+    {'product_name': '여성 가디건', 'img_path':'images/clothes.png', 'product_price':'10,000'},
+    {'product_name': '거실 소파', 'img_path':'images/sofa.png', 'product_price':'100,000'},
+    {'product_name': '닌텐도', 'img_path':'images/nintendo.png', 'product_price':'10,000'},
+    {'product_name': '여성 핸드백', 'img_path':'images/handbag.png', 'product_price':'10,000'},
+    ] # 임시 전체 아이템
+    
+    total = len(posts_all)
+    posts = posts_all[offset:offset+per_page]
+
+    return render_template(
+        "/list.html",
+        posts=posts,
+        pagination=Pagination(
+            page=page,  # 지금 우리가 보여줄 페이지는 1 또는 2, 3, 4, ... 페이지인데,
+            total=total,  # 총 몇 개의 포스트인지를 미리 알려주고,
+            per_page=per_page,  # 한 페이지당 몇 개의 포스트를 보여줄지 알려주고,
+            prev_label="< Back",  # 전 페이지와,
+            next_label="Next >",  # 후 페이지로 가는 링크의 버튼 모양을 알려주고,
+            format_total=True,  # 총 몇 개의 포스트 중 몇 개의 포스트를 보여주고있는지 시각화,
+            css_framework='foundation'
+        ),
+        search=True,  # 페이지 검색 기능을 주고,
+        bs_version=5,  # Bootstrap 사용시 이를 활용할 수 있게 버전을 알려줍니다.
+    )
 
 @application.route("/review_list", methods=("GET",))
 def review_list():
@@ -87,23 +102,14 @@ def reg_review():
 def login():
     return render_template("login.html")
 
+@application.route("/sign_up")
+def sign_up():
+    return render_template("sign_up.html")
+
 @application.route("/submit_item_post", methods=['POST'])
 def reg_item_submit_post():
-    
-    # image_file=request.files["file"]
-    # image_file.save(f"static/images/{image_file.filename}")
-    
-    # data=request.form
-    # print("User posted: ",
-    #       request.form.get("name"),
-    #       request.form.get("seller"),
-    #       request.form.get("addr"),
-    #       request.form.get("email"),
-    #       request.form.get("category"),
-    #       request.form.get("card"),
-    #       request.form.get("status"),
-    #       request.form.get("phone"),)
     return render_template("list.html")
+
  
 if __name__ == "__main__":
     application.run(host='0.0.0.0')
