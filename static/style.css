@@ -73,3 +73,11 @@ h2 {
     margin-bottom: 10px;
     width: 100%;
 }
+
+/*상품 설명 디자인*/
+.textareastyle{
+    height: 80px;
+    width: 100%;
+    resize: none; /* 사용자가 사이즈 변경 불가 */
+    overflow-wrap: break-word; /* 줄바꿈 설정 */
+}
