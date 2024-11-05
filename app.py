@@ -23,6 +23,10 @@ def reg_item():
 def reg_review():
     return render_template("reg_reviews.html")
 
+@application.route("/login")
+def login():
+    return render_template("login.html")
+
 @application.route("/submit_item_post", methods=['POST'])
 def reg_item_submit_post():
     

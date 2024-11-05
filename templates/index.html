@@ -4,12 +4,13 @@
       <html lang="en">
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="../static/style.css">
-      <script src="../static/main.js" defer></script>
+      <title>Home</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      <script src="{{ url_for('static', filename='main.js') }}" defer></script>
       <script src="https://kit.fontawesome.com/97098c5e7a.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
    </head>
-   
+   <body>
       <header id="header" class ="indexHeader">
          <nav id="topBar">
             <a href ="/home"><img src="../static/image/logo.png" title="로고" width="200px"></a>
@@ -23,8 +24,8 @@
                </div>
       
             <ul class = "top_menu">
-               <li><a href="login.html">로그인</a></li>
-               <li><a href="chat.html">메시지</a></li>
+               <li><a href="/login">로그인</a></li>
+               <li><a href="/chat">메시지</a></li>
             </ul>
          </nav> 
       
@@ -37,5 +38,11 @@
             </ul>
          </nav>  
       </header>
+   </body>
+
+   <section>
+      {% block section %}
+      {% endblock section %}
+   </section>
 
 </html>
