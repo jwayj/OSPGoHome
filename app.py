@@ -12,7 +12,7 @@ def hello():
 
 @application.route("/list")
 def view_list():
-    page, per_page, offset = get_page_args(per_page=5)
+    page, per_page, offset = get_page_args(per_page=10)
     # 현재 페이지, 페이지당 아이템 수, 현재 페이지는 몇 번째 아이템부터 보여주는가
 
     # cur = get_cur()
@@ -31,6 +31,12 @@ def view_list():
     {'product_name': '거실 소파', 'img_path':'images/sofa.png', 'product_price':'100,000'},
     {'product_name': '닌텐도', 'img_path':'images/nintendo.png', 'product_price':'10,000'},
     {'product_name': '여성 핸드백', 'img_path':'images/handbag.png', 'product_price':'10,000'},
+    {'product_name': '디지털 카메라', 'img_path':'images/camera.png', 'product_price':'50,000'},
+    {'product_name': '간호학 전공책', 'img_path':'images/book.png', 'product_price':'50,00'},
+    {'product_name': '여성 가디건', 'img_path':'images/clothes.png', 'product_price':'10,000'},
+    {'product_name': '거실 소파', 'img_path':'images/sofa.png', 'product_price':'100,000'},
+    {'product_name': '닌텐도', 'img_path':'images/nintendo.png', 'product_price':'10,000'},
+    {'product_name': '여성 핸드백', 'img_path':'images/handbag.png', 'product_price':'10,000'}
     ] # 임시 전체 아이템
     
     total = len(posts_all)

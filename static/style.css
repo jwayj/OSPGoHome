@@ -79,12 +79,12 @@ h2 {
     width:700px;
 }
 
-.review-small {
+.post-item {
     width: 200px;
     margin: 2%;
 }
 
-.review-small .text {
+.post-item .text {
     margin: 0%;
     padding: 2px;
     width: 100%;
@@ -94,27 +94,25 @@ h2 {
     text-overflow: ellipsis;
 }
 
-.item-list {
-    margin-top: 30px;
-    margin-bottom: 30px;
+.post-list {
+    margin: 30px;
     display: grid;
-    column-gap: 22px;
     grid-template-columns: repeat(5, 1fr);
     justify-items: center;
-    row-gap: 40px;
+    row-gap: 10px;
 }
 @media screen and (max-width: 1100px) {
-    .item-list {
+    .post-list {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 @media screen and (max-width: 900px) {
-    .item-list {
+    .post-list {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 @media screen and (max-width: 700px) {
-    .item-list {
+    .post-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -217,32 +215,6 @@ h2 {
     overflow: visible; /* 높이가 잘리지 않도록 오버플로우 수정 */
 }
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    row-gap: 0px;
-    padding: 10px 10px;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: #ffffff;
-}
-
-.product-item {
-    text-align: left;
-    padding: 15px;
-    border-radius: 5px;
-    font-size: 15px;
-    background-color: #ffffff;
-}
-
-.product-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
 .product-name {
     margin-top: 10px;
     font-family: 'GmarketSans';
@@ -265,7 +237,7 @@ h2 {
     a { text-decoration: none; padding: 15px 15px; color: #08233E;};
     nav{ display: flex; justify-content: space-between;};
     ul {display:flex; text-align: center; padding-inline-start: 0;};
-    li {padding-bottom: 15px; padding-top: 15px; display: block; list-style-type: none; white-space: nowrap;};
+    li { display: block; list-style-type: none; white-space: nowrap;};
     form {padding: 20px 20px; align-items: center;};
 
     .top_menu{
@@ -336,9 +308,10 @@ h2 {
 }
 
 #loginContainer {
-    justify-items: center;
+    justify-self: center;
     margin-top: 80px;
     #loginMain {
+        justify-self: center;
         justify-items: center;
         margin: 10px;
         margin-bottom: 50px;
@@ -480,8 +453,8 @@ h2 {
     padding: 10px 20px;
     border: 2px solid #ccc;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -489,9 +462,9 @@ h2 {
 }
 
 .sign_up_step.active {
-    background-color: #007bff;
+    background-color: #2E669E;
     color: #fff;
-    border-color: #007bff;
+    border-color: #2E669E;
 }
 
 .sign_up_step span {
@@ -556,7 +529,7 @@ h2 {
 }
 
 .sign_up_check_button, .sign_up_next_button, .sign_up_login_button {
-    background-color: #007bff;
+    background-color: #2E669E;
     color: #fff;
     padding: 10px 20px;
     border: none;
