@@ -10,4 +10,66 @@
 * {
     font-family: GmarketSans;
     font-size: 15px;
+    box-sizing: border-box;
+}
+
+a {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h1 {
+    font-family: GmarketSansBold;
+    font-size: 30px;
+}
+
+/*파란색 선*/
+.container h1::after {
+                content:"";
+                display: block; 
+                width: 150px;
+                height: 2px;
+                background-color: #2E669E;
+                margin-top: 10px;
+                left: 0;
+            }
+
+h2 {
+    font-family: GmarketSansBold;
+    font-size: 21px;
+}
+
+/*본문*/
+.container{
+    max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            overflow-y: auto;
+            flex: 1;
+}
+
+/*버튼 스타일*/
+.btn{
+     display: inline-block;
+            padding: 10px 20px;
+            background-color: #2E669E;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 210px;
+            height: 45px;
+            font-size: 1em;
+            margin-top: 20px;
+}
+
+/*인풋 상자? 위치 맞추기*/
+.inputstyle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
 }
