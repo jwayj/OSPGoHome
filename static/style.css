@@ -11,3 +11,45 @@
     font-family: GmarketSans;
     font-size: 15px;
 }
+.star-rate{
+    display: flex;
+}
+.star{
+    appearance: none;
+    padding: 1px;
+}
+.star::after{
+    content: '★';
+    color: #D9D9D9;
+    font-size: 80px;
+}
+.star:checked::after,
+.star:has(~ .star:checked)::after{
+    color:gold;
+    content: '★';
+}
+.title{
+    font-size: 21px;
+}
+.reviewTitle{
+    width: 300px;
+}
+
+.form-row1{
+    display: inline-block;
+    margin-right: 10%;
+    margin-bottom: 10px;
+}
+.form-row2{
+    display: inline-block;
+    margin-right: 20%;
+    margin-bottom: 10px;
+}
+.reviewId{
+    padding-bottom: 10%;
+}
+.category{
+    padding-bottom: 10%;
+}
+
+

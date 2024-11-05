@@ -1,4 +1,77 @@
 {% extends "index.html" %}
  {% block section %}
- 리뷰 등록 화면입니다.
+ <form>
+
+<div class="form-row1">
+    <div>
+    <label for="reviwerId" class="reviewId">Reviwer ID: </label>
+    <input type="text" name="reviwerId" id="reviwerId" required>
+    </div>
+    <div>
+    <label for="goods" class="goods">상품: </label>
+    <input type="text" name="goods" id="goods">
+    </div>
+</div>
+
+<div class="form-row2">
+    <div>  
+    <label for="select-category" class="category">카테고리: </label>
+    <select id="select-category">
+       <option value="select" hidden>--카테고리 선택--</option>
+       <option value="digital">디지털 기기</option>
+       <option value="furniture">가구</option>
+       <option value="clothes">의류</option>
+       <option value="others">기타</option>
+    </select>
+    </div>
+    <div>
+    <label for="select-status", class="status">상품 상태: </label>
+    <select id="select-status">
+        <option value="select" hidden>--상품 상태 선택--</option>
+        <option value="notOpenedNew">미개봉 새 상품</option>
+        <option value="notOpened">미개봉 상품</option>
+        <option value="littleUsed">사용감 적음</option>
+        <option value="muchUsed">사용감 많음</option>
+        <option value="broken">고장난 상품</option>
+    </select>
+   </div>
+   </div>
+
+ <p class="title">별점</p>
+<div class="star-rate">
+    <input type="radio" class="star" value="1">
+    <input type="radio" class="star" value="2">
+    <input type="radio" class="star" value="3">
+    <input type="radio" class="star" value="4">
+    <input type="radio" class="star" value="5">
+</div>
+ <br><br>
+ <div>
+    <p class="title">상세리뷰</p>
+    <label for="reviewTitle">제목: </label>
+    <input type="text" class="reviewTitle" name="reviewTitle" id="reviewTitle" placeholder="제목을 입력하세요." required><br><br>
+    <label for="review"></label>
+    <textarea name="review" cols="60" rows="10" placeholder="상품에 대한 솔직한 평가를 입력하세요."></textarea>
+ </div>
+ <br>
+ <div>
+ <label for="img">사진 첨부</label><br>
+ <input type="file" name="file" /><br><br>
+</div>
+<div class="register_review">
+    <input type="submit" clsss="register" value="등록하기" onclick="registerCheck()"><br><br>
+    <script>
+        function registerCheck(){
+            if(confirm("리뷰를 등록하시겠습니까?")==true){
+                document.register_review.submit();
+                alert("리뷰가 등록되었습니다.");
+            }
+            else{
+                return false;
+            }
+        }
+    </script>
+</div>
+ </form>
+
  {% endblock section %}
