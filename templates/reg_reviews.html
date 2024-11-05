@@ -1,11 +1,12 @@
 {% extends "index.html" %}
  {% block section %}
-<form>
+<form class="reg_reviews">
 <div class="form-row1">
     <div>
     <label for="reviwerId" class="reviewId">Reviwer ID: </label>
     <input type="text" name="reviwerId" id="reviwerId" required>
     </div>
+    <br>
     <div>
     <label for="goods" class="goods">상품: </label>
     <input type="text" name="goods" id="goods">
@@ -23,6 +24,7 @@
        <option value="others">기타</option>
     </select>
     </div>
+    <br>
     <div>
     <label for="select-status", class="status">상품 상태: </label>
     <select id="select-status" name="status">
@@ -50,7 +52,7 @@
     <label for="reviewTitle">제목: </label>
     <input type="text" class="reviewTitle" name="reviewTitle" id="reviewTitle" placeholder="제목을 입력하세요." required><br><br>
     <label for="review"></label>
-    <textarea name="review" cols="60" rows="10" placeholder="상품에 대한 솔직한 평가를 입력하세요."></textarea>
+    <textarea name="review" cols="70" rows="10" placeholder="상품에 대한 솔직한 평가를 입력하세요."></textarea>
  </div>
  <br>
  <div>

@@ -154,6 +154,12 @@ h2 {
 .pagination .unavailable {
     display: none;
 }
+/*글자 크기*/
+.title{
+    font-size: 21px;
+}
+
+/*별점*/
 .star-rate{
     display: flex;
 }
@@ -164,16 +170,27 @@ h2 {
 .star::after{
     content: '★';
     color: #D9D9D9;
-    font-size: 80px;
+    font-size: 100px;
 }
-.star:checked::after,
-.star:has(~ .star:checked)::after{
+.star:hover::after{
+    content: '★';
+    color: gold;
+}
+.star:has(~ .star:hover)::after{
     color:gold;
     content: '★';
 }
-.title{
-    font-size: 21px;
+.star:checked::after,
+.star:has(~ .star:checked)::after{
+    content: '★';
+    color: gold;
 }
+.star:hover ~ .star::after{
+    content: '★';
+    color: #D9D9D9;
+}
+
+/*요소 배치*/
 .reviewTitle{
     width: 300px;
 }
@@ -181,21 +198,29 @@ h2 {
 .form-row1{
     display: inline-block;
     margin-right: 10%;
-    margin-bottom: 10px;
+    margin-bottom: 1%;
 }
 .form-row2{
     display: inline-block;
-    margin-right: 20%;
-    margin-bottom: 10px;
+    padding: 1%;
+    margin-right: 10%;
+    margin-bottom: 1%;
 }
 .reviewId{
-    padding-bottom: 10%;
+    padding-bottom: 1%;
 }
 .category{
-    padding-bottom: 10%;
+    padding-bottom: 1%;
+}
+.reg_reviews{
+    padding-left: 10%;
 }
 
 
+.register_review{
+    display: inline-block;
+    margin-right: none;
+}
 
 .filter-bar {
     display: flex;
