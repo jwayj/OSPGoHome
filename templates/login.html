@@ -1,6 +1,10 @@
 {% extends "index.html" %}
 {% block section %}
-
+{% with mesg = get_flashed_messages() %}
+{% if mesg !=[] %}
+   <script>alert("{{ mesg[0] }}")</script>
+{% endif %}
+{% endwith %}
 <div id="loginContainer">
    <div id="loginMain">
       <p>로그인</p>

@@ -1,0 +1,35 @@
+<p>
+    Seller {{data.seller}} sells {{data.name}} and its c
+    ategory is {{data.category}}.
+    The item is
+    {% if data['status'] == "new" %}
+    new!
+    {% endif %}
+    {% if data['status'] == "noused" %}
+    미사용 상품
+    {% endif %}
+    {% if data['status'] == "oftenused" %}
+    사용감 적음
+    {% endif %}
+    {% if data['status'] == "manyused" %}
+    사용감 많음
+    {% endif %}
+    {% if data['status'] == "broken" %}
+    고장난 상품
+    {% endif %}
+    </p>
+    <img src="{{img_path}}"/>
+    <p>
+    The address is {{data.addr}}
+    The price is {{data.price}}
+    {{data.explanation}}
+    </p>
+    <p>
+    For payment, the credit card is
+    {% if data['directtransaction'] == "possible" %}
+    직거래 가능
+    {% endif %}
+    {% if data['directtransaction'] == "impossible" %}
+    직거래 불가능
+    {% endif %}
+    </p>
