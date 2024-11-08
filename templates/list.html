@@ -1,4 +1,40 @@
 {% extends "index.html" %}
- {% block section %}
-    등록된 상품 리스트 조회 화면입니다.
- {% endblock section %}
+{% block section %}
+<div class="filter-bar">
+    <select name="price" id="price">
+        <option value="">가격 선택</option>
+        <option value="low">낮은 가격순</option>
+        <option value="high">높은 가격순</option>
+    </select>
+    <select name="condition" id="condition">
+        <option value="">상태 선택</option>
+        <option value="new">신상품</option>
+        <option value="used">중고상품</option>
+    </select>
+    <select name="region" id="region">
+        <option value="">지역 선택</option>
+        <option value="seoul">서울</option>
+        <option value="busan">부산</option>
+    </select>
+    <select name="availability" id="availability">
+        <option value="">판매 여부 선택</option>
+        <option value="available">판매 중</option>
+        <option value="sold_out">품절</option>
+    </select>
+</div>
+
+<main class="post-list">
+
+{% for post in posts %}
+    <div class="post-item">
+        <img src="{{ url_for('static', filename=post.img_path) }}" alt={{post.product_name}} class="rounded-img-small">
+        <div class="post-item text" style="font-size:21px; margin-top:5px">{{post.product_name}}</div>
+        <div class="post-item text" style="font-family:'GmarketSansLight'">₩{{post.product_price}}</div>
+    </div>
+{% endfor %}
+
+</main>
+
+{{ pagination.links | safe }}
+
+{% endblock section %}
