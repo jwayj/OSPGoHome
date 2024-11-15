@@ -24,7 +24,11 @@
                </div>
       
             <ul class = "top_menu">
-               <li><a href="/login">로그인</a></li>
+               {% if session['id'] %}
+               <li><a href="/logout"><b>{{session['id']}}님 반갑습니다!</b>logout</a></li>
+               {% else %}
+               <li><a href="/login">login</a></li>
+               {% endif %}
                <li><a href="/chat">메시지</a></li>
             </ul>
          </nav> 

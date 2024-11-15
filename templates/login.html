@@ -12,12 +12,12 @@
    </div>
    
    <div id="loginInput">
-      <form method="post">
-         <input type="text" id="id" placeholder="아이디"><br>
-         <input type="password" id="pw" placeholder="비밀번호"><br><br>
+      <form action = "/login_confirm" method="post">
+         <input type="text" id="id" name = "id" placeholder="아이디"><br>
+         <input type="password" id="pw" name = "pw" placeholder="비밀번호"><br><br>
          <button class="loginBtn" type="submit">로그인</button>
       </form>
-      <button class="loginBtn" onclick='location.href="/sign_up"'>
+      <button class="loginBtn" onclick='location.href="/signup1"'>
          <a>회원가입</a>
       </button>
    </div>

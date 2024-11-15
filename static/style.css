@@ -485,17 +485,10 @@ h2 {
 }
 
 .sign_up_step_content {
-    display: none;
     font-family: GmarketSans;
 }
 
-.sign_up_step1_content {
-    display: block; 
-}
 
-.sign_up_step_content.active {
-    display: block; 
-}
 
 .sign_up_textarea {
     width: 100%;
