@@ -82,6 +82,10 @@ def review_list():
 def view_review():
     return render_template("review.html")
 
+@application.route("/view_detail")  # 디버깅용
+def view_detail():
+    return render_template("view_detail.html")
+
 @application.route("/reg_items")
 def reg_item():
     return render_template("reg_items.html")
