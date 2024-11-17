@@ -16,6 +16,10 @@ def hello():
     #return render_template("index.html")
     return redirect(url_for('view_list'))
 
+@application.route("/home") 
+def home():
+    return render_template("home.html")
+
 @application.route("/list")
 def view_list():
     page = request.args.get("page", 0, type=int)

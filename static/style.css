@@ -117,41 +117,53 @@ h2 {
     }
 }
 
-.pagination {
+.page-nation{
     display: flex;
     list-style: none; /* 기본 리스트 스타일 제거 */
     padding: 0; /* 기본 패딩 제거 */
     margin: 20px 0; /* 위아래 마진 설정 */
     justify-content: center; /* 중앙 정렬 */
+    align-items: center; 
 }
 
-.pagination li {
-    margin: 0 5px; /* 항목 간의 간격 */
+.page-wrap{
+    width: 100%;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; 
+    text-align: center;
+    font-size: 0;
 }
 
-.pagination a {
+.page-nation a {
     text-decoration: none; /* 링크 밑줄 제거 */
-    padding: 10px 15px; /* 패딩 추가 */
     border: 1px solid #2E669E; /* 테두리 설정 */
     border-radius: 5px; /* 둥근 모서리 */
     color: #2E669E; /* 링크 색상 */
     transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+    display: block;
+    margin: 0 3px;
+    float: left;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
 }
 
-.pagination a:hover {
+.page-nation a:hover {
     background-color: #2E669E; /* 호버 시 배경색 */
     color: white; /* 호버 시 글자색 */
 }
 
-.pagination .current a {
+/* week11에서는 사용x */
+.page-nation .current a {
     background-color: #2E669E; /* 현재 페이지 배경색 */
     color: white; /* 현재 페이지 글자색 */
     border: none; /* 현재 페이지 테두리 제거 */
 }
-
-.pagination .unavailable {
-    display: none;
+.pagination li {
+    margin: 0 5px; /* 항목 간의 간격 */
 }
+
 /*글자 크기*/
 .title{
     font-size: 21px;
@@ -544,4 +556,84 @@ h2 {
 
 .sign_up_check_button {
     margin-left: 10px;
+}
+
+
+.home-middle{
+    display: flex; /* Flexbox로 변경 */
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    width: 60%;
+    height: 450px;
+    background-color: #2E669E;
+    border-radius: 30px;
+    padding: 10px;
+    text-align: center;
+
+    h1{
+        font-family: GmarketSansBold;
+        font-size: 30px;
+        color: white;
+
+    }
+}
+
+.home-search-box {
+    position: relative;
+    width: 60%;
+    height: 50px; /* 높이 증가 */
+    min-width: 300px;
+    background-color: #EEEEEE;
+    border-radius: 30px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto; /* 상하 여백 추가 및 가로 중앙 배치 */
+}
+
+.home-search-box input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    background-color: #EEEEEE;
+    border-radius: 30px 0 0 30px; /* 왼쪽 둥근 모서리 */
+    outline: none;
+    padding: 0 20px;
+    font-size: 18px; /* 글자 크기 증가 */
+}
+
+.home-search-box button {
+    width: 70px; /* 버튼 너비 증가 */
+    height: 100%; /* 부모 높이와 동일하게 설정 */
+    border: none;
+    border-radius: 0 30px 30px 0; /* 오른쪽 둥근 모서리 */
+    color: white;
+    background-color: #3488db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.home-search-box button:hover {
+    background-color: #0096fb;
+}
+
+.home-search-box i {
+    font-size: 24px; /* 아이콘 크기 증가 */
+}
+.home-side{
+width: 40%;
+height: 450px;
+padding: 10px;
+}
+
+.home-container {
+    display: flex; /* Flexbox 사용 */
+    width: 100%;
+    justify-content: space-between; /* 양옆 배치 */
+    padding: 20px;
+    box-sizing: border-box; /* 패딩 포함한 너비 계산 */
 }

@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+{% block section %}
+<div class="home-container">
+    <div class="home-middle">
+        <h1>사기 피해 사례 검색</h1>
+        <form class="home-search-box">
+            <input type="text" id="thecheat-search" name="search" placeholder="연락처 또는 계좌번호로 검색해 보세요.">
+            <button type="submit">
+               <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+         </form>
+         <p>
+            더치트는 범죄피해 방지 및 범죄 피해자 보호를 위해 2006년부터 운영되고 있습니다.
+         </p>
+    </div>
+
+    <div class="home-side">
+      <h1>Review</h1>
+        <div style="width: 100%; overflow: hidden; text-overflow: ellipsis;">
+            <div class="star-review" style="float:left; width:100%; padding-top:5px;     white-space: nowrap;">★★★★☆</div>
+            <h2>리뷰 제목</h2>
+            <p>적당한 설명들</p>
+        </div>
+        <div style="width: 100%; overflow: hidden; text-overflow: ellipsis;">
+            <div class="star-review" style="float:left; width:100%; padding-top:5px;     white-space: nowrap;">★★★★☆</div>
+            <h2>리뷰 제목</h2>
+            <p>적당한 설명들</p>
+        </div>
+        <div style="width: 100%; overflow: hidden; text-overflow: ellipsis;">
+            <div class="star-review" style="float:left; width:100%; padding-top:5px;     white-space: nowrap;">★★★★☆</div>
+            <h2>리뷰 제목</h2>
+            <p>적당한 설명들</p>
+        </div>
+    </div>
+    
+</div>
+{% endblock section %}
