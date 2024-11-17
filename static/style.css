@@ -117,41 +117,53 @@ h2 {
     }
 }
 
-.pagination {
+.page-nation{
     display: flex;
     list-style: none; /* 기본 리스트 스타일 제거 */
     padding: 0; /* 기본 패딩 제거 */
     margin: 20px 0; /* 위아래 마진 설정 */
     justify-content: center; /* 중앙 정렬 */
+    align-items: center; 
 }
 
-.pagination li {
-    margin: 0 5px; /* 항목 간의 간격 */
+.page-wrap{
+    width: 100%;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; 
+    text-align: center;
+    font-size: 0;
 }
 
-.pagination a {
+.page-nation a {
     text-decoration: none; /* 링크 밑줄 제거 */
-    padding: 10px 15px; /* 패딩 추가 */
     border: 1px solid #2E669E; /* 테두리 설정 */
     border-radius: 5px; /* 둥근 모서리 */
     color: #2E669E; /* 링크 색상 */
     transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+    display: block;
+    margin: 0 3px;
+    float: left;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
 }
 
-.pagination a:hover {
+.page-nation a:hover {
     background-color: #2E669E; /* 호버 시 배경색 */
     color: white; /* 호버 시 글자색 */
 }
 
-.pagination .current a {
+/* week11에서는 사용x */
+.page-nation .current a {
     background-color: #2E669E; /* 현재 페이지 배경색 */
     color: white; /* 현재 페이지 글자색 */
     border: none; /* 현재 페이지 테두리 제거 */
 }
-
-.pagination .unavailable {
-    display: none;
+.pagination li {
+    margin: 0 5px; /* 항목 간의 간격 */
 }
+
 /*글자 크기*/
 .title{
     font-size: 21px;
@@ -485,17 +497,10 @@ h2 {
 }
 
 .sign_up_step_content {
-    display: none;
     font-family: GmarketSans;
 }
 
-.sign_up_step1_content {
-    display: block; 
-}
 
-.sign_up_step_content.active {
-    display: block; 
-}
 
 .sign_up_textarea {
     width: 100%;
