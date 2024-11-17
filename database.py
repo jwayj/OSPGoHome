@@ -20,7 +20,7 @@ class DBhandler:
             "status": data['status'],
             "directtransaction": data['directtransaction']
         }
-        self.db.child("item").child("name").set(item_info)
+        self.db.child("item").child(name).set(item_info)
         print(data,img_path)
         return True
     
@@ -59,3 +59,13 @@ class DBhandler:
             if value['id'] == id_ and value['pw'] == pw_:
                 return True
         return False
+    
+    def get_item_byname(self, name):
+        items = self.db.child("item").get()
+        target_value=""
+        print("###########",name)
+        for res in items.each():
+            key_value = res.key()
+            if key_value == name:
+                target_value=res.val()
+        return target_value

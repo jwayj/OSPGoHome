@@ -82,6 +82,13 @@ def review_list():
 def view_review():
     return render_template("review.html")
 
+@application.route("/view_detail/<name>/")
+def view_item_detail(name):
+    print("###name:",name)
+    data = DB.get_item_byname(str(name))
+    print("####data:",data)
+    return render_template("view_detail.html", name=name, data=data)
+
 @application.route("/view_detail")  # 디버깅용
 def view_detail():
     return render_template("view_detail.html")
