@@ -31,7 +31,7 @@
     <table>
         <tr>
         {% for key, value in row1 %}
-        <td>상품이름: {{key}}</td>
+        <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;">상품이름: {{key}}</td>
         {% endfor %}
         </tr>
         <tr>
