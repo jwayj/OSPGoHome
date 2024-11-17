@@ -36,7 +36,7 @@
         </tr>
         <tr>
         {% for key, value in row1 %}
-        <td><img src="static/images/{{value.img_path}}"></td>
+        <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
         {% endfor %}
         </tr>
         <tr>
@@ -46,7 +46,7 @@
             </tr>
             <tr>
             {% for key, value in row2 %}
-            <td><img src="static/images/{{value.img_path}}"></td>
+            <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
             {% endfor %}
             </tr>
         </table>
