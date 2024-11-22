@@ -557,3 +557,13 @@ h2 {
 .sign_up_check_button {
     margin-left: 10px;
 }
+
+#heart {
+    color: grey;
+    font-size: 40px;
+    /*margin-left: 320px;*/
+
+}
+#heart.red {
+    color: red;
+}
