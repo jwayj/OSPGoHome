@@ -13,36 +13,27 @@ DB=DBhandler()
 
 @application.route("/")
 def hello():
-    #return render_template("index.html")
-    return redirect(url_for('view_list'))
+    return home()
 
 @application.route("/home") 
 def home():
-    page = request.args.get("page", 0, type=int)
-    per_page=10 # item count to display per page
-    per_row=5# item count to display per row
-    row_count=int(per_page/per_row)
-    start_idx=per_page*page
-    end_idx=per_page*(page+1)
-    data = DB.get_items() #read the table
-    item_counts = len(data)
-    data = dict(list(data.items())[start_idx:end_idx])
-    tot_count = len(data)
-    for i in range(row_count):#last row
-        if (i == row_count-1) and (tot_count%per_row != 0):
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
-        else:
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+    # Fetch data
+    reviews = DB.get_reviews()  # Review data
+    items = DB.get_items()      # Item data
+
+    # Limit reviews to 3 and split into rows of 1
+    reviews = list(reviews.items())[:3]  # Only 3 reviews
+    review_rows = [[review] for review in reviews]  # Each review in its own row
+
+    # Limit items to 10 and split into rows of 5
+    items = list(items.items())[:10]
+    item_rows = [items[i:i + 5] for i in range(0, len(items), 5)]  # Split into rows of 5
 
     return render_template(
         "home.html",
-        datas=data.items(),
-        row1=locals()['data_0'].items(),
-        row2=locals()['data_1'].items(),
-        limit=per_page,
-        page=page,
-        page_count=int((item_counts/per_page)+1),
-        total=item_counts)
+        reviews=review_rows,  # Reviews as rows of 1
+        rows=item_rows        # Items as rows of 5
+    )
 
 @application.route("/list")
 def view_list():
