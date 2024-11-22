@@ -65,7 +65,7 @@ def view_list():
         total=item_counts)
 
 @application.route("/chat")
-def view_chat(
+def view_chat():
     return render_template("chat.html")
 
 @application.route("/view_detail/<name>/")
@@ -171,8 +171,14 @@ def register_user():
     data=request.form
     pw=request.form['pw']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    if DB.insert_user(data,pw_hash):
-        return render_template("signup3.html")
+    pw_confirm = data['pw_confirm']
+    
+    if pw != pw_confirm:
+        flash("비밀번호가 일치하지 않습니다.")
+        return redirect("/signup2")
+    
+    if DB.insert_user(data, pw_hash):
+        return render_template("signup3.html", user_id=data['id'])
     else:
         #flash("user id already exist!")
         return render_template("signup2.html")
@@ -188,23 +194,24 @@ def signup2():
         return redirect("/signup1")
     return render_template("signup2.html")
 
-@application.route("/signup3", methods=['POST'])
-def signup3():
-    # 여기서 사용자 정보를 처리하고 데이터베이스에 저장합니다.
-    data = request.form
-    pw = data['pw']
-    pw_confirm = data['pw_confirm']
+# @application.route("/signup3", methods=['POST'])
+# def signup3():
+#     # 여기서 사용자 정보를 처리하고 데이터베이스에 저장합니다.
+#     data = request.form
+#     print("#######debug", data)
+#     pw = data['pw']
+#     pw_confirm = data['pw_confirm']
     
-    if pw != pw_confirm:
-        flash("비밀번호가 일치하지 않습니다.")
-        return redirect("/signup2")
+#     if pw != pw_confirm:
+#         flash("비밀번호가 일치하지 않습니다.")
+#         return redirect("/signup2")
     
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    if DB.insert_user(data, pw_hash):
-        return render_template("signup3.html", user_id=data['id'])
-    else:
-        flash("사용자 등록에 실패했습니다.")
-        return redirect("/signup2")
+#     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+#     if DB.insert_user(data, pw_hash):
+#         return render_template("signup3.html", user_id=data['id'])
+#     else:
+#         flash("사용자 등록에 실패했습니다.")
+#         return redirect("/signup2")
 
 @application.route("/check_duplicate_id", methods=['POST'])
 def check_duplicate_id():
