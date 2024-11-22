@@ -32,6 +32,32 @@
             <p>적당한 설명들</p>
         </div>
     </div>
-    
 </div>
+    
+    <div>
+        <h1>오늘의 추천 상품</h1>
+        <table>
+            <tr>
+            {% for key, value in row1 %}
+            <td>상품이름: {{key}}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for key, value in row1 %}
+            <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
+            {% endfor %}
+            </tr>
+            <tr>
+                {% for key, value in row2 %}
+                <td>상품이름: {{key}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                {% for key, value in row2 %}
+                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+
 {% endblock section %}
