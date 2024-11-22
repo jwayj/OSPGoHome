@@ -1,10 +1,12 @@
 {% extends "index.html" %}
 {% block section %}
-
+<!--
 <div style="margin-top:20px">
    <div style="position:absolute; width:700px; padding:50px; padding-left:100px">
       <img src="https://via.placeholder.com/500x500.png" alt="이미지 없음" class="rounded-img-big" onclick="openPopup('popup1')">
    </div>
+
+
    <div class="popup" id="popup1" onclick="closePopup('popup1')">
       <img src="https://via.placeholder.com/500x500.png" alt="이미지 없음">
    </div>
@@ -20,5 +22,20 @@
       </div>
    </div>
 </div>
+-->
 
+
+   <div style="display: inline-flex;">
+       <img src="{{ url_for('static', filename='image/' + data.img_path) }}" alt="상품 사진" width="600px" height="600px">
+       <div>
+           <div style="margin:20px">
+           <h1>
+            리뷰 제목 : {{data.reviewTitle}}
+           </h1>
+           <p>
+            {{data.review}}
+            </p>          
+       </div>
+   </div>
+</div>
 {% endblock section %}
