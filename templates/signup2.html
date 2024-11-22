@@ -1,0 +1,84 @@
+{% extends "index.html" %}
+{% block section %}
+{% with mesg = get_flashed_messages() %}
+{% if mesg !=[] %}
+    <script>alert("{{ mesg[0] }}")</script>
+{% endif %}
+{% endwith %}
+<main class="sign_up_main">
+    <p class="sign_up_title">회원가입</p>
+    
+    <div class="sign_up_steps">
+        <div class="sign_up_step sign_up_step1">
+            <span>STEP 1</span>
+            <p class="sign_up_p">사이트 안내</p>
+        </div>
+        <div class="sign_up_step sign_up_step2 active">
+            <span>STEP 2</span>
+            <p class="sign_up_p">정보 입력</p>
+        </div>
+        <div class="sign_up_step sign_up_step3">
+            <span>STEP 3</span>
+            <p class="sign_up_p">가입 완료</p>
+        </div>
+    </div>
+
+    <div class="sign_up_step_content">
+        <form action="{{ url_for('register_user') }}" method="post">
+            <p class="sign_up_info">정보 입력</p>
+            <p class="sign_up_instruction">( * 표시된 필드는 반드시 입력해야하는 항목입니다 )</p><br><br>
+
+            <div class="form-group">
+                <label for="id">아이디*</label>
+                <input type="text" class="form-control" id="id" name="id" required>
+                <button type="button" class="btn btn-secondary" onclick="checkDuplicateId()">중복 확인</button>
+                <small id="idHelp" class="form-text text-muted"></small>
+            </div>
+
+            <label for="password" class="sign_up_label">비밀번호*</label>
+            <input type="password" id="password" name="pw" placeholder="비밀번호 입력" class="sign_up_text_password" required>
+
+            <label for="password-confirm" class="sign_up_label">비밀번호 확인*</label>
+            <input type="password" id="password-confirm" name="pw_confirm" placeholder="비밀번호 확인" class="sign_up_text_password" required>
+            
+            <label for="name" class="sign_up_label">이름*</label>
+            <input type="text" id="name" name="name" placeholder="이름 입력" class="sign_up_text_password" required>
+
+            <label for="email" class="sign_up_label">이메일*</label>
+            <input type="email" id="email" name="email" placeholder="이메일 입력" class="sign_up_text_password" required>
+
+            <button type="submit" class="sign_up_next_button">다음</button>
+        </form>
+        
+    </div>
+</main>
+
+<script>
+    function checkDuplicateId() {
+        var id = document.getElementById('id').value;
+        if (id) {
+            fetch('/check_duplicate_id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + encodeURIComponent(id)
+            })
+            .then(response => response.text())
+            .then(result => {
+                var helpText = document.getElementById('idHelp');
+                if (result === 'available') {
+                    helpText.textContent = '사용 가능한 아이디입니다.';
+                    helpText.style.color = 'green';
+                } else {
+                    helpText.textContent = '이미 사용 중인 아이디입니다.';
+                    helpText.style.color = 'red';
+                }
+            });
+        } else {
+            alert('아이디를 입력해주세요.');
+        }
+    }
+</script>
+
+{% endblock section %}

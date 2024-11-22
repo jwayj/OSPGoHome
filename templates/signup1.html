@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block section %}
+<main class="sign_up_main">
+    <p class="sign_up_title">회원가입</p>
+    
+    <div class="sign_up_steps">
+        <div class="sign_up_step sign_up_step1 active">
+            <span>STEP 1</span>
+            <p class="sign_up_p">사이트 안내</p>
+        </div>
+        <div class="sign_up_step sign_up_step2">
+            <span>STEP 2</span>
+            <p class="sign_up_p">정보 입력</p>
+        </div>
+        <div class="sign_up_step sign_up_step3">
+            <span>STEP 3</span>
+            <p class="sign_up_p">가입 완료</p>
+        </div>
+    </div>
+
+    <div class="sign_up_step_content">
+        <textarea readonly class="sign_up_textarea">사이트에 대한 안내 내용</textarea>
+        <form action="/signup2" method="post">
+            <label class="sign_up_label">
+                <input type="checkbox" name="agree" required class="sign_up_checkbox"> 해당 내용을 확인했습니다.
+            </label>
+            <button type="submit" class="sign_up_next_button">다음</button>
+        </form>
+    </div>
+</main>
+{% endblock section %}

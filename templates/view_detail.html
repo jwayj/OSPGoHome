@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+ {% block section %}
+    <div>
+        <h1>
+            상품명 : {{data.name}}
+        </h1>
+        <div style="display: inline-flex;">
+            <img src="../../static/image/{{data.img_path}}" alt="상품 사진" width="600px" height="600px">
+            <div>
+                <div style="margin:20px">
+                <h1>
+                    판매중
+                </h1>
+                <p>
+                    가격: {{data.price}}
+                    <br><br>
+                    상태:
+                    {% if data['status']=="new" %}
+                    미개봉 새 상품
+                    {% endif %}
+                    {% if data['status']=="noused" %}
+                    미사용 상품
+                    {% endif %}
+                    {% if data['status']=="oftenused" %}
+                    사용감 적음
+                    {% endif %}
+                    {% if data['status']=="manyused" %}
+                    사용감 많음
+                    {% endif %}
+                    {% if data['status']=="broken" %}
+                    고장난 상품
+                    {% endif %}
+                    
+                    <br><br>
+                    판매자 ID: {{data.seller}}
+                    <br><br>
+                    거래 희망 장소: {{data.addr}}
+                    <br><br>
+                    직거래 가능: {{data.directtransaction}}
+                    <br><br>
+                    판매자 별점:                 
+                    <br><br>
+                </p>
+                <div style="display: inline-flex;">
+                    <button type="calltoseller" class="btn">
+                        판매자에게 연락하기
+                    </button>
+                    <button type="showsellerreivew" class="btn">
+                        판매자 리뷰 보기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>세부 정보:{{data.explanation}}</p>
+    </div>
+
+ {% endblock section %}

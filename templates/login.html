@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block section %}
+{% with mesg = get_flashed_messages() %}
+{% if mesg !=[] %}
+   <script>alert("{{ mesg[0] }}")</script>
+{% endif %}
+{% endwith %}
+<div id="loginContainer">
+   <div id="loginMain">
+      <p>로그인</p>
+      <hr id="loginLine" size="4px" width="200px" color="#2E669E">
+   </div>
+   
+   <div id="loginInput">
+      <form action = "/login_confirm" method="post">
+         <input type="text" id="id" name = "id" placeholder="아이디"><br>
+         <input type="password" id="pw" name = "pw" placeholder="비밀번호"><br><br>
+         <button class="loginBtn" type="submit">로그인</button>
+      </form>
+      <button class="loginBtn" onclick='location.href="/signup1"'>
+         <a>회원가입</a>
+      </button>
+   </div>
+</div>
+
+{% endblock section %}
+         

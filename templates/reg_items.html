@@ -1,62 +1,109 @@
 {% extends "index.html" %}
 {% block section %}
 <form action="/submit_item_post" enctype="multipart/form-data" method="post">
-<div><br>
-<label for="name">Item name: </label>
-<input type="text" name="name" id="name" required><br><br>
-</div>
-<div>
-<label for="seller"> Seller ID: </label>
-<input type="text" name="seller" id="seller" required><br><br>
-</div>
-<div>
-<label for="addr"> Address: </label>
-<input type="text" name="addr" id="addr" required><br><br>
-</div>
-<div>
-<label for="email">Email: </label>
-<input type="text" name=”email" id=”email" required><br><br>
-</div>
-<div>
-<label for="category">Category: </label>
-<br>
-<select id="category" name="category">
-<option value="Clothes" selected> Clothes </option>
-<option value="Beauty"> Beauty </option>
-<option value="Books"> Books </option>
-<option value="Furniture"> Furniture </option>
-<option value="Electronics"> Electronics </option>
-<option value="ETC"> ETC </option>
-</select><br><br>
-</div>
-<div>
-<label for="card">Credit Card? (Y/N): </label>
-<br>
-<select id="card" name="card">
-<option value="Y" selected>Yes</option>
-<option value="N">No</option>
-</select><br><br>
-</div>
-<div>
-<label for="status">Status? </label>
-<br>
-<select id="status" name="status">
-<option value="new" selected>New</option>
-<option value="lnew">Likely New</option>
-<option value="used">Used</option>
-</select><br><br>
-</div>
-<div>
-<label for="phone">Phone : </label>
-<input type="text" name="phone" id="phone"><br><br>
-</div>
-<!--상품 이미지 입력-->
-<div>
-    <label for="img">상품 이미지</label><br>
-    <input type="file" name="file" /><br><br>
-</div>
-<div>
-<input type="submit" value="Submit!"><br><br>
-</div>
+
+    <div class="container">
+    <!--상품 등록-->
+        <div><br><br>
+            <h1>상품등록</h1>
+            <br>
+        </div>
+        
+        <!--상품 이름 입력-->
+        <div>
+            <label for="name">상품 이름</label><br>
+            <input class="inputstyle" type="text" name="name" id="name" required><br><br>
+        </div>
+      
+        <!--상품 이미지 입력-->
+        <div>
+            <label for="img">상품 이미지</label><br>
+            <input class="inputstyle" type="file" name="file" /><br><br>
+        </div>
+
+        <!--상품 카테고리 입력-->
+        <div>
+            <label for="category">카테고리</label>
+            <br>
+            <div class="inputstyle"></div>
+            <select id="category" name="category">
+            <option value="Clothes" selected> 의류 </option>
+            <option value="Furniture"> 가구 </option>
+            <option value="Electronics"> 디지털 기기 </option>
+            <option value="ETC"> 기타 </option>
+            </select><br><br><br>
+        </div>
+
+        <!--상품 상태 입력-->
+        <div>
+            <label>상품 상태</label><br>
+            <div class="inputstyle"></div>
+            <input  type="radio" id="status-new" name="status" value="new" checked>
+            <label for="status-new">미개봉 새 상품</label><br>
+
+            <input type="radio" id="status-noused" name="status" value="noused">
+            <label for="status-noused">미사용 상품</label><br>
+
+            <input type="radio" id="status-oftenused" name="status" value="oftenused">
+            <label for="status-oftenused">사용감 적음</label><br>
+
+            <input type="radio" id="status-manyused" name="status" value="manyused">
+            <label for="status-manyused">사용감 많음</label><br>
+
+            <input type="radio" id="status-broken" name="status" value="broken">
+            <label for="status-broken">고장난 상품</label><br>
+            <br><br>            
+        </div>
+            
+        <!--상품 설명 입력-->
+        <div>
+            <label for="explanation">설명</label><br>
+            <textarea class="textareastyle" name="explanation" id="explanation" required></textarea><br><br>
+        </div>
+
+        <!--상품 가격 입력-->
+        <div>
+            <label for="price"> 가격 </label><br>
+            <input class="inputstyle" type="text" name="price" id="price" required><br><br> 
+        </div>
+        
+    <!--판매자 정보-->
+        <div>
+            <h1>판매자 정보</h1>
+            <br>
+        </div>
+        
+        <!--판매자 아이디 입력-->
+            <div>
+            <label for="seller"> 판매자 아이디 </label>
+            <input class="inputstyle" type="text" name="seller" id="seller" required><br><br>
+        </div>
+
+        <!--지역 입력-->
+        <div>
+            <label for="addr"> 지역 </label>
+            <input class="inputstyle" type="text" name="addr" id="addr" required><br><br>
+        </div>
+    
+    <!--추가 정보-->
+        <div>
+            <h1>추가 정보</h1><br>
+        </div>    
+
+        <!--직거래 여부 입력-->
+        <div>
+            <label>직거래 여부</label><br>
+            <div class="inputstyle"></div>
+            <input type="radio" id="direct-possible" name="directtransaction" value="possible" checked>
+            <label for="direct_possible">가능</label><br>
+            <input type="radio" id="direct-impossible" name="directtransaction" value="impossible">
+            <label for="direct_impossible">불가능</label><br>
+            <br><br>
+        </div>
+
+        <!--입력한 정보 제출 버튼-->
+        <button type="submit" class="btn">상품 등록하기</button>
+        <br><br><br><br>
+    </div>
 </form>
 {% endblock section %}
