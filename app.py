@@ -128,7 +128,7 @@ def reg_review_submit_post():
     image_file.save("static/image/{}".format(image_file.filename))
     data=request.form
     DB.reg_review(data, image_file.filename)
-    return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
+    return render_template("view_detail.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
 @application.route("/view_review_detail/<name>/")
 def view_review_detail(name):
@@ -228,7 +228,7 @@ def reg_item_submit_post():
     image_file.save("static/image/{}".format(image_file.filename))
     data=request.form
     DB.insert_item(data['name'], data, image_file.filename)
-    return render_template("submit_item_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
+    return view_item_detail(data['name'])
 
 @application.route('/show_heart/<name>/', methods=['GET'])
 def show_heart(name):
