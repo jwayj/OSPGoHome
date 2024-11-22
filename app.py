@@ -72,7 +72,7 @@ def view_list():
         page_count=int((item_counts/per_page)+1),
         total=item_counts)
 
-@application.route("/review_list", methods=["GET"])
+@application.route("/review_list", methods=("GET",))
 def review_list():
     page, per_page, offset = get_page_args(per_page=10)
     # 현재 페이지, 페이지당 아이템 수, 현재 페이지는 몇 번째 아이템부터 보여주는가
@@ -105,6 +105,10 @@ def review_list():
         search=True,  # 페이지 검색 기능을 주고,
         bs_version=5,  # Bootstrap 사용시 이를 활용할 수 있게 버전을 알려줍니다.
     )
+
+@application.route("/chat")
+def view_chat():
+    return render_template("view.chat")
 
 @application.route("/review")  # 디버깅용
 def view_review():
