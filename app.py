@@ -65,7 +65,7 @@ def view_list():
         total=item_counts)
 
 @application.route("/chat")
-def view_chat(
+def view_chat():
     return render_template("chat.html")
 
 @application.route("/view_detail/<name>/")
