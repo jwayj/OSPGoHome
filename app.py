@@ -64,9 +64,9 @@ def view_list():
         page_count=int((item_counts/per_page)+1),
         total=item_counts)
 
-@application.route("/view_detail")  # 디버깅용
-def view_detail():
-    return render_template("view_detail.html")
+@application.route("/chat")
+def view_chat(
+    return render_template("chat.html")
 
 @application.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -109,11 +109,6 @@ def view_review():
         page_count=int((item_counts/per_page)+1),
         total=item_counts)
   
-
-@application.route("/review")  # 디버깅용
-def view_review_page():
-    return render_template("review.html")
-
 
 @application.route("/reg_review_init/<name>/")
 def reg_review_init(name):

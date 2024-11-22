@@ -1,4 +1,4 @@
-import pyrebase 
+import pyrebase
 import json
 
 class DBhandler:
