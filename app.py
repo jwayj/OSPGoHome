@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 import sys
 from flask_paginate import Pagination, get_page_args
 import hashlib
@@ -110,6 +110,10 @@ def review_list():
 def view_review():
     return render_template("review.html")
 
+@application.route("/view_detail")  # 디버깅용
+def view_detail():
+    return render_template("view_detail.html")
+
 @application.route("/view_detail/<name>/")
 def view_item_detail(name):
     print("###name:",name)
@@ -162,14 +166,14 @@ def register_user():
     if DB.insert_user(data,pw_hash):
         return render_template("signup3.html")
     else:
-        flash("user id already exist!")
+        #flash("user id already exist!")
         return render_template("signup2.html")
 
 @application.route("/signup1")
 def signup1():
     return render_template("signup1.html")
 
-@application.route("/signup2", methods=['POST'])
+@application.route("/signup2", methods=['POST', 'GET'])
 def signup2():
     if 'agree' not in request.form:
         flash("약관에 동의해야 합니다.")
@@ -197,12 +201,10 @@ def signup3():
 @application.route("/check_duplicate_id", methods=['POST'])
 def check_duplicate_id():
     id_ = request.form['id']
-    is_available = DB.user_duplicate_check(id_)
-    if is_available:
-        flash("사용 가능한 아이디입니다.")
+    if DB.user_duplicate_check(id_):
+        return "available"
     else:
-        flash("이미 사용 중인 아이디입니다.")
-        return redirect("/signup2")
+        return "duplicate"
 
 
 @application.route("/submit_item_post", methods=['POST'])
@@ -211,7 +213,7 @@ def reg_item_submit_post():
     image_file.save("static/image/{}".format(image_file.filename))
     data=request.form
     DB.insert_item(data['name'], data, image_file.filename)
-    return render_template("submit_item_post.html", data=data, img_path= "static/images/{}".format(image_file.filename))
+    return render_template("submit_item_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
 
  
