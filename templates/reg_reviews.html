@@ -1,15 +1,15 @@
 {% extends "index.html" %}
  {% block section %}
-<form class="reg_reviews">
+<form class="reg_reviews" name="reg_reviews" id="reg_reviews" method="post" action="/submit_review_post" enctype="multipart/form-data">
 <div class="form-row1">
     <div>
     <label for="reviwerId" class="reviewId">Reviwer ID: </label>
-    <input type="text" name="reviwerId" id="reviwerId" required>
+    <input type="text" name="reviewerId" id="reviewerId" required>
     </div>
     <br>
     <div>
-    <label for="goods" class="goods">상품: </label>
-    <input type="text" name="goods" id="goods">
+    <label for="name" class="name">상품: </label>
+    <input type="text" name="name" id="name" value="{{name}}">
     </div>
 </div>
 
@@ -29,10 +29,10 @@
     <label for="select-status", class="status">상품 상태: </label>
     <select id="select-status" name="status">
         <option value="select" hidden>--상품 상태 선택--</option>
-        <option value="notOpenedNew">미개봉 새 상품</option>
-        <option value="notOpened">미개봉 상품</option>
-        <option value="littleUsed">사용감 적음</option>
-        <option value="muchUsed">사용감 많음</option>
+        <option value="new">미개봉 새 상품</option>
+        <option value="noused">미개봉 상품</option>
+        <option value="oftenused">사용감 적음</option>
+        <option value="manyused">사용감 많음</option>
         <option value="broken">고장난 상품</option>
     </select>
    </div>
@@ -59,7 +59,8 @@
  <br>
  <div>
  <label for="img">사진 첨부</label><br>
- <input type="file" name="file" /><br><br>
+ <input class="inputstyle" type="file" name="file" /><br><br>
+
 </div>
 <div class="register_review">
    <input type="submit" clsss="register" value="등록하기" onclick="registerCheck();"/><br><br>

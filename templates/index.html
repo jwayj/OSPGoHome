@@ -6,9 +6,11 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Home</title>
       <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <script src="{{ url_for('static', filename='main.js') }}" defer></script>
       <script src="https://kit.fontawesome.com/97098c5e7a.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
+      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
    </head>
    <body>
       <header id="header" class ="indexHeader">
@@ -37,7 +39,6 @@
             <ul>
                <li> <a href="/list">상품</a></li>
                <li> <a href="/reg_items">상품 등록</a></li>
-               <li> <a href="/review">리뷰 상세</a></li>  <!--나중에 삭제예정-->
                <li> <a href="/review_list">리뷰 목록</a></li>
                <li> <a href="/reg_reviews">리뷰 등록</a></li>
             </ul>

@@ -6,58 +6,55 @@
         <form class="home-search-box">
             <input type="text" id="thecheat-search" name="search" placeholder="연락처 또는 계좌번호로 검색해 보세요.">
             <button type="submit">
-               <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-         </form>
-         <p>
+        </form>
+        <p>
             더치트는 범죄피해 방지 및 범죄 피해자 보호를 위해 2006년부터 운영되고 있습니다.
-         </p>
+        </p>
     </div>
 
+    <!-- Review Section -->
     <div class="home-side">
-      <h1>Review</h1>
-        <div style="width: 100%; overflow: hidden; text-overflow: ellipsis;">
-            <div class="star-review" style="float:left; width:100%; padding-top:5px;     white-space: nowrap;">★★★★☆</div>
-            <h2>리뷰 제목</h2>
-            <p>적당한 설명들</p>
-        </div>
-        <div style="width: 100%; overflow: hidden; text-overflow: ellipsis;">
-            <div class="star-review" style="float:left; width:100%; padding-top:5px;     white-space: nowrap;">★★★★☆</div>
-            <h2>리뷰 제목</h2>
-            <p>적당한 설명들</p>
-        </div>
-        <div style="width: 100%; overflow: hidden; text-overflow: ellipsis;">
-            <div class="star-review" style="float:left; width:100%; padding-top:5px;     white-space: nowrap;">★★★★☆</div>
-            <h2>리뷰 제목</h2>
-            <p>적당한 설명들</p>
-        </div>
+        <h1>Review</h1>
+        <table>
+            {% for row in reviews %}
+            <tr class="home-tr">
+                {% for key, value in row %}
+                <td class="home-reivewTitle" onclick="location.href='/view_review_detail/{{ key }}/';" style="cursor:pointer;">
+                    제목: {{ value.reviewTitle }}</td>
+                {% endfor %}
+            </tr>
+            <tr class="home-tr">
+                {% for key, value in row %}
+                <td class="home-reivew" onclick="location.href='/view_review_detail/{{ key }}/';" style="cursor:pointer;">
+                    {{value.review}}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 </div>
-    
+
+    <!-- Items Section -->
     <div>
         <h1>오늘의 추천 상품</h1>
         <table>
+            {% for row in rows %}
             <tr>
-            {% for key, value in row1 %}
-            <td>상품이름: {{key}}</td>
-            {% endfor %}
-            </tr>
-            <tr>
-            {% for key, value in row1 %}
-            <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
-            {% endfor %}
-            </tr>
-            <tr>
-                {% for key, value in row2 %}
-                <td>상품이름: {{key}}</td>
-                {% endfor %}
-                </tr>
-                <tr>
-                {% for key, value in row2 %}
-                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
+                {% for key, value in row %}
+                <td>상품이름: {{ key }}</td>
                 {% endfor %}
             </tr>
+            <tr>
+                {% for key, value in row %}
+                <td onclick="location.href='/view_detail/{{ key }}/';" style="cursor:pointer;">
+                    <img src="{{ url_for('static', filename='image/' + value.img_path) }}" width="300px" height="300px">
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
         </table>
     </div>
-
 {% endblock section %}

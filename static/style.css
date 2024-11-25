@@ -558,6 +558,16 @@ h2 {
     margin-left: 10px;
 }
 
+#heart {
+    color: grey;
+    font-size: 40px;
+    /*margin-left: 320px;*/
+
+}
+#heart.red {
+    color: red;
+}
+
 
 .home-middle{
     display: flex; /* Flexbox로 변경 */
@@ -638,6 +648,25 @@ margin:10px;
     padding: 20px;
     box-sizing: border-box; /* 패딩 포함한 너비 계산 */
 }
+
+
+.home-reivewTitle {
+    font-family: GmarketSansBold;
+    font-size: 21px;
+}
+
+.home-reivew {
+    height: 150px;
+    display: block;               /* 블록 레벨로 설정 */
+    white-space: normal;          /* 줄바꿈 허용 */
+    overflow: hidden;             /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis;      /* '...' 표시 */
+    line-height: 1.5em;           /* 줄 간격 설정 */
+    max-height: 3em;              /* 최대 높이 (2줄 * line-height) */
+    word-wrap: break-word; 
+    margin-bottom:20px;
+}
+
 
 /* 요 아래는 전부 chat에 관련된 css */
 
