@@ -108,7 +108,7 @@ def review_list():
 
 @application.route("/chat")
 def view_chat():
-    return render_template("view.chat")
+    return render_template("chat.html")
 
 @application.route("/review")  # 디버깅용
 def view_review():
