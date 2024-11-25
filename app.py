@@ -130,8 +130,12 @@ def reg_review_submit_post():
     DB.reg_review(data, image_file.filename)
     return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
+@application.route("/chat")
+def view_chat():
+    return render_template("chat.html")
 @application.route("/view_review_detail/<name>/")
 def view_review_detail(name):
+
     print("###name:",name)
     data = DB.get_review_byname(str(name))
     print("####data:",data)
