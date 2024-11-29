@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 import sys
 from flask_paginate import Pagination, get_page_args
 import hashlib
+import math
 from database import DBhandler
 
 
@@ -38,15 +39,25 @@ def home():
 @application.route("/list")
 def view_list():
     page = request.args.get("page", 0, type=int)
+    status = request.args.get("status", "all")
+    print("debugin",page, status)
     per_page=10 # item count to display per page
     per_row=5# item count to display per row
     row_count=int(per_page/per_row)
     start_idx=per_page*page
     end_idx=per_page*(page+1)
-    data = DB.get_items() #read the table
+    if status=="all":
+        data=DB.get_items()
+    else:
+        data=DB.get_items_bystatus(status)
+    data = dict(sorted(data.items(), key=lambda x: x[0], reverse=False))
     item_counts = len(data)
-    #print(data.items())
-    data = dict(list(data.items())[start_idx:end_idx])
+    if item_counts<=per_page:
+        data = dict(list(data.items())[:item_counts])
+    else:
+        data = dict(list(data.items())[start_idx:end_idx])
+    print(data.items())
+    #data = dict(list(data.items())[start_idx:end_idx])
     tot_count = len(data)
     for i in range(row_count):#last row
         if (i == row_count-1) and (tot_count%per_row != 0):
@@ -61,12 +72,13 @@ def view_list():
         row2=locals()['data_1'].items(),
         limit=per_page,
         page=page,
-        page_count=int((item_counts/per_page)+1),
-        total=item_counts)
+        page_count=int(math.ceil(item_counts/per_page)),
+        total=item_counts,
+        status=status)
 
-@application.route("/chat")
-def view_chat():
-    return render_template("chat.html")
+#@application.route("/chat")
+#def view_chat():
+#    return render_template("chat.html")
 
 @application.route("/view_detail/<name>/")
 def view_item_detail(name):
