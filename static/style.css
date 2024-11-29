@@ -657,10 +657,12 @@ margin:10px;
 
 .home-reivew {
     height: 150px;
+    width:400px;
     display: block;               /* 블록 레벨로 설정 */
     white-space: normal;          /* 줄바꿈 허용 */
     overflow: hidden;             /* 넘치는 텍스트 숨김 */
-    text-overflow: ellipsis;      /* '...' 표시 */
+    text-overflow:ellipsis;
+    white-space:nowrap;     /* '...' 표시 */
     line-height: 1.5em;           /* 줄 간격 설정 */
     max-height: 3em;              /* 최대 높이 (2줄 * line-height) */
     word-wrap: break-word; 
