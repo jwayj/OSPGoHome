@@ -1,26 +1,49 @@
 {% extends "index.html" %}
 {% block section %}
+
+<script>
+    $(document).ready(function () {
+        alert("{{status}}");
+        $('#status option:contains("{{status}}")').prop("selected", true); 
+    });
+</script>
+
 <div class="filter-bar">
-    <select name="price" id="price">
-        <option value="">가격 선택</option>
-        <option value="low">낮은 가격순</option>
-        <option value="high">높은 가격순</option>
-    </select>
-    <select name="condition" id="condition">
-        <option value="">상태 선택</option>
-        <option value="new">신상품</option>
-        <option value="used">중고상품</option>
-    </select>
-    <select name="region" id="region">
-        <option value="">지역 선택</option>
-        <option value="seoul">서울</option>
-        <option value="busan">부산</option>
-    </select>
-    <select name="availability" id="availability">
-        <option value="">판매 여부 선택</option>
-        <option value="available">판매 중</option>
-        <option value="sold_out">품절</option>
-    </select>
+    <div>
+        <select name="price" id="price">
+            <option value="">가격 선택</option>
+            <option value="low">낮은 가격순</option>
+            <option value="high">높은 가격순</option>
+        </select>
+    </div>
+
+    <div>
+        <select name="status" id="status" onchange="location=this.value">
+            <option value="{{url_for('view_list', page=i, status='all')}}" selected>상태 선택</option>
+            <option value="{{url_for('view_list', page=i, status='new')}}">미개봉 새 상품</option>
+            <option value="{{url_for('view_list', page=i, status='noused')}}">미사용 상품</option>
+            <option value="{{url_for('view_list', page=i, status='oftenused')}}">사용감 적음</option>
+            <option value="{{url_for('view_list', page=i, status='manyused')}}">사용감 많음</option>
+            <option value="{{url_for('view_list', page=i, status='broken')}}">고장난 상품</option>
+        </select>
+
+    </div>
+    
+    <div>
+        <select name="region" id="region">
+            <option value="">지역 선택</option>
+            <option value="seoul">서울</option>
+            <option value="busan">부산</option>
+        </select>
+    </div>
+
+    <div>
+        <select name="availability" id="availability">
+            <option value="">판매 여부 선택</option>
+            <option value="available">판매 중</option>
+            <option value="sold_out">품절</option>
+        </select>
+    </div>
 </div>
 
 <main class="post-list">

@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block section %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 채팅</title>
+</head>
+<body>
+    <div class="chat-container"> <!--왼쪽 탭: 채팅방-->
+        <div class="chat-room-list">
+            <div class="chat-room" id="chatRoom1"> <!--이거 chat-room-상대방_id에 중괄호 2개로 수정해야 해요 (JinJa)-->
+                <p><strong>사용자 B</strong></p>
+                <p>마지막 메시지 미리보기...</p> <!--여기도 JinJa-->
+            </div>
+            <div class="chat-room" id="chatRoom2">
+                <p><strong>사용자 D</strong></p>
+                <p>마지막 메시지 미리보기...</p>
+            </div>
+        </div>
+        <div class="chat-box">
+            <div class="chat-messages" id="chatMessages"> <!--이거 우선은 예시로 style 봐야 하니까 이렇게 했는데 바꿔야 할 것 같아요... Jinja같은 걸로-->
+                <div class="chat-message received"> <!--정렬하려고 received/sent 나눴어요-->
+                    <span class="chat-user-id">red</span>
+                    <span class="chat-message-content">안녕하세요!</span>
+                    <span class="chat-message-time">오후 3:15</span>
+                </div>
+                <div class="chat-message sent">
+                    <span class="chat-user-id">blue</span>
+                    <span class="chat-message-content">안녕하세요!</span>
+                    <span class="chat-message-time">오후 3:16</span>
+                </div>
+            </div>
+            <div class="chat-input"> <!--이거 하단에 입력창입니다-->
+                <input type="text" id="chat-messageInput" placeholder="Enter 키를 눌러 메시지를 보내세요.">
+                <button id="chat-sendButton">보내기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock section %}

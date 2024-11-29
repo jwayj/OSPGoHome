@@ -1,4 +1,4 @@
-import pyrebase 
+import pyrebase
 import json
 
 class DBhandler:
@@ -8,6 +8,7 @@ class DBhandler:
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
 
+    #item 정보
     def insert_item(self, name, data, img_path):
         item_info ={
             "name": data['name'],
@@ -24,6 +25,21 @@ class DBhandler:
         print(data,img_path)
         return True
     
+    def get_items(self):
+        items = self.db.child("item").get().val()
+        return items
+    
+    def get_item_byname(self, name):
+        items = self.db.child("item").get()
+        target_value=""
+        print("###########",name)
+        for res in items.each():
+            key_value = res.key()
+            if key_value == name:
+                target_value=res.val()
+        return target_value
+    
+    #user 정보
     def insert_user(self, data, pw):
         user_info ={
             "id": data['id'], "pw": pw,
@@ -34,7 +50,7 @@ class DBhandler:
             return True
         else:
             return False
-        
+           
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
         print("users###",users.val())
@@ -47,10 +63,6 @@ class DBhandler:
                     return False
             return True
     
-    def get_items(self ):
-        items = self.db.child("item").get().val()
-        return items
-    
     def find_user(self, id_, pw_):
         users = self.db.child("user").get()
         target_value=[]
@@ -60,12 +72,72 @@ class DBhandler:
                 return True
         return False
     
-    def get_item_byname(self, name):
-        items = self.db.child("item").get()
+    #review 정보
+    def reg_review(self, data, img_path):
+        review_info ={
+        "reviewerId": data['reviewerId'],
+        "category": data['category'],
+        "status": data['status'],
+        "rating": data['rating'],
+        "reviewTitle": data['reviewTitle'],
+        "review": data['review'],
+        "img_path": img_path
+        }
+        #받아올 정보: 상품명
+        self.db.child("review").child(data['name']).set(review_info)
+        print(data, img_path)
+        return True
+    
+    def get_reviews(self):
+        reviews=self.db.child("review").get().val()
+        return reviews
+    
+    def get_review_byname(self, name):
+        reviews = self.db.child("review").get()
         target_value=""
         print("###########",name)
-        for res in items.each():
+        for res in reviews.each():
             key_value = res.key()
             if key_value == name:
                 target_value=res.val()
         return target_value
+
+    #heart
+    def get_heart_byname(self, uid, name):
+        hearts = self.db.child("heart").child(uid).get()
+        target_value=""
+        if hearts.val() == None:
+            return target_value
+
+        for res in hearts.each():
+            key_value = res.key()
+
+            if key_value == name:
+                target_value=res.val()
+        return target_value
+
+    def update_heart(self, user_id, isHeart, item):
+        heart_info ={
+        "interested": isHeart
+        }
+        self.db.child("heart").child(user_id).child(item).set(heart_info)
+        return True
+    
+    #list.html에서 status에 따라 다른 값 출력
+    def get_items_bystatus(self, cate):
+        print("카테고리",cate)
+        items = self.db.child("item").get() 
+        target_value=[]
+        target_key=[]
+        for res in items.each():
+            value = res.val()
+            key_value = res.key()
+
+            if value['status'] == cate:
+                target_value.append(value) 
+                target_key.append(key_value)
+        print("######target_value",target_value) 
+        new_dict={}
+        for k,v in zip(target_key,target_value):
+            new_dict[k]=v
+        return new_dict
