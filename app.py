@@ -64,9 +64,9 @@ def view_list():
         page_count=int((item_counts/per_page)+1),
         total=item_counts)
 
-@application.route("/chat")
-def view_chat():
-    return render_template("chat.html")
+# @application.route("/chat")
+# def view_chat():
+#     return render_template("chat.html")
 
 @application.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -77,7 +77,11 @@ def view_item_detail(name):
 
 @application.route("/reg_items")
 def reg_item():
-    return render_template("reg_items.html")
+    if 'id' in session:
+        return render_template("reg_items.html")
+    flash("로그인이 필요합니다") #로그아웃 상태일 때 상품 등록 제한, 로그인페이지로 이동
+    return redirect(url_for('login'))
+    
 
 
 #리뷰
@@ -112,7 +116,11 @@ def view_review():
 
 @application.route("/reg_review_init/<name>/")
 def reg_review_init(name):
-    return render_template("reg_reviews.html", name=name)
+    if 'id' in session:
+        return render_template("reg_reviews.html", name=name)
+    flash("로그인이 필요합니다") #로그아웃 상태일 때 리뷰 등록 제한, 로그인페이지로 이동
+    return redirect(url_for('login'))
+    
 
 @application.route("/reg_reviews", methods=['POST'])
 def reg_review():

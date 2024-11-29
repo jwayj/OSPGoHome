@@ -792,3 +792,12 @@ margin:10px;
 }
 
 /* 요기까지 chat에 관련된 css */
+
+/* 스크롤바 */
+.scrollable-paragraph {
+    width: 600px;
+    height: 400px;
+    overflow:hidden;
+    word-wrap:break-word;
+    overflow-y: scroll;
+}
