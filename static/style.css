@@ -440,6 +440,7 @@ h2 {
 
 /*인풋 상자? 위치 맞추기*/
 .inputstyle{
+    align-items: center;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;

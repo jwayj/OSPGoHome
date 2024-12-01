@@ -26,8 +26,8 @@
     </div>
     <br>
     <div>
-    <label for="select-status", class="status">상품 상태: </label>
-    <select id="select-status" name="select-status">
+    <label for="status", class="status">상품 상태: </label>
+    <select id="status" name="status">
         <option value="select" hidden>--상품 상태 선택--</option>
         <option value="new">미개봉 새 상품</option>
         <option value="noused">미개봉 상품</option>
@@ -59,11 +59,11 @@
  <br>
  <div>
  <label for="img">사진 첨부</label><br>
- <input class="inputstyle" type="file" name="file" /><br><br>
+ <input class="inputstyle" type="file" name="file" enctype="multipart/form-data"><br><br>
 
 </div>
 <div class="register_review">
-   <input type="submit" clsss="register" value="등록하기" onclick="registerCheck();"/><br><br>
+   <input type="submit" class="register" value="등록하기" onclick="registerCheck();"/><br><br>
 </div>
 </form> 
 <script>
