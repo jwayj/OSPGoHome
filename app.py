@@ -183,9 +183,10 @@ def view_review():
 @application.route("/chat")
 def view_chat():
     return render_template("chat.html")
+
+#리뷰 상세 조회
 @application.route("/view_review_detail/<name>/")
 def view_review_detail(name):
-
     print("###name:",name)
     data = DB.get_review_byname(str(name))
     print("####data:",data)
