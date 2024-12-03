@@ -65,8 +65,15 @@ def view_list():
         total=item_counts)
 
 @application.route("/chat")
-def view_chat():
-    return render_template("chat.html")
+def chat():
+    last_chatted_user = DB.get_last_chatroom(session['id'])
+    print(last_chatted_user)
+    return redirect(url_for("view_chat", opponent_id=last_chatted_user))
+    
+@application.route("/chat/<opponent_id>")
+def view_chat(opponent_id):
+    user = session['id']
+    return render_template("chat.html", opponent=opponent_id, user=user)
 
 @application.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -130,9 +137,6 @@ def reg_review_submit_post():
     DB.reg_review(data, image_file.filename)
     return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
-@application.route("/chat")
-def view_chat():
-    return render_template("chat.html")
 @application.route("/view_review_detail/<name>/")
 def view_review_detail(name):
 

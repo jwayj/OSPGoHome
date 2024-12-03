@@ -121,3 +121,18 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
+    
+    def get_last_chatroom(self, user_id):
+        user_rooms = self.db.child("UserRooms").child(user_id).get()
+        last_chatted_user = ""
+        last_chatted_time = 0
+        for room in user_rooms.each():
+            messages = self.db.child("RoomMessages").child(room.val()['roomId']).get()
+            for message in messages.each():
+                message_time = message.val()['timestamp']
+                if message_time > last_chatted_time:
+                    last_chatted_time = message_time
+                    last_chatted_user = room.key()
+                
+        return last_chatted_user
+            

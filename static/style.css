@@ -688,6 +688,9 @@ margin:10px;
 }
 /* 채팅방 각각 */
 .chat-room {
+    display: flex; /* flexbox 사용 */
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 정렬 */
     padding: 7px;
     margin-bottom: 7px;
     background-color: #fff;
@@ -698,6 +701,24 @@ margin:10px;
 /* 채팅방에 마우스 올렸을 때*/
 .chat-room:hover {
     background-color: #eaeaea;
+}
+
+.chat-info {
+    flex-grow: 1; /* 남은 공간을 사용 */
+}
+
+.chat-unread-count {
+    display: inline-block;
+    background-color: red; /* 배경색 */
+    color: white; /* 글자색 */
+    border-radius: 10px; /* 둥글게 */
+    padding: 2px 6px; /* 여백 */
+    font-size: 12px; /* 글자 크기 */
+    margin-left: 10px; /* 왼쪽 여백 */
+    vertical-align: middle; /* 수직 정렬 */
+}
+.chat-hidden {
+    display: none; /* 숨김 클래스 */
 }
 
 /* 채팅 박스(좌측 탭 빼고 모두 포함) */
