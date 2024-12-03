@@ -3,7 +3,9 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 import sys
 from flask_paginate import Pagination, get_page_args
 import hashlib
+import math
 from database import DBhandler
+
 
 
 
@@ -11,6 +13,7 @@ application = Flask(__name__)
 application.config["SECRET_KEY"]="helloosp"
 DB=DBhandler()
 
+###홈 화면
 @application.route("/")
 def hello():
     return home()
@@ -35,18 +38,59 @@ def home():
         rows=item_rows        # Items as rows of 5
     )
 
+###상품 전체조회 화면
 @application.route("/list")
 def view_list():
     page = request.args.get("page", 0, type=int)
+    status = request.args.get("status", "all")
+    addr = request.args.get("addr","all")
+    price_order = request.args.get("price", "all")
+    availability=request.args.get("availability","all")
+    #print("주소 출력",addr)
+    #print("지역 출력",addr)
+    #print("debug",page, status)
+    #print("debug",page, addr)
     per_page=10 # item count to display per page
     per_row=5# item count to display per row
     row_count=int(per_page/per_row)
     start_idx=per_page*page
     end_idx=per_page*(page+1)
-    data = DB.get_items() #read the table
+    # data=DB.get_items()
+    # if status!="all":
+    #     items={k:v for k,v in data.items() if v['status']==status}
+    # if addr!=all:
+    #     items={k:v for k,v in data.items() if v['addr']==addr}
+    data=DB.get_items()
+    if status != "all":
+        data={k: v for k,v in data.items() if v['status']==status}
+    if addr!="all":
+        data={k: v for k,v in data.items() if v['addr']==addr}
+
+    
+    for key, value in data.items():
+        if DB.get_review_byname(key):
+            value['availability']="sold_out"
+        else:
+            value['availability']="available"
+
+    if availability!="all":
+        data={k: v for k,v in data.items() if v['availability']==availability}
+    
+    if price_order=="low":
+        data=dict(sorted(data.items(), key=lambda x: int(x[1]["price"])))
+    elif price_order=="high":
+        data=dict(sorted(data.items(), key=lambda x: int(x[1]["price"]), reverse=True))
+    elif price_order=="all":
+        data=data
+    print("data 출력",data)
+    #print("debug data",data, "지역도 출력", addr, "상태도 출력",status)
     item_counts = len(data)
-    #print(data.items())
-    data = dict(list(data.items())[start_idx:end_idx])
+    if item_counts<=per_page:
+        data = dict(list(data.items())[:item_counts])
+    else:
+        data = dict(list(data.items())[start_idx:end_idx])
+    print(data.items())
+    #data = dict(list(data.items())[start_idx:end_idx])
     tot_count = len(data)
     for i in range(row_count):#last row
         if (i == row_count-1) and (tot_count%per_row != 0):
@@ -61,13 +105,18 @@ def view_list():
         row2=locals()['data_1'].items(),
         limit=per_page,
         page=page,
-        page_count=int((item_counts/per_page)+1),
-        total=item_counts)
+        page_count=int(math.ceil(item_counts/per_page)),
+        total=item_counts,
+        status=status,
+        addr=addr,
+        price_order=price_order,
+        availability=availability)
 
-# @application.route("/chat")
-# def view_chat():
-#     return render_template("chat.html")
+#@application.route("/chat")
+#def view_chat():
+#    return render_template("chat.html")
 
+###상품 상세 화면
 @application.route("/view_detail/<name>/")
 def view_item_detail(name):
     print("###name:",name)
@@ -75,6 +124,7 @@ def view_item_detail(name):
     print("####data:",data)
     return render_template("view_detail.html", name=name, data=data)
 
+###리뷰 등록 화면
 @application.route("/reg_items")
 def reg_item():
     if 'id' in session:
@@ -83,8 +133,28 @@ def reg_item():
     return redirect(url_for('login'))
     
 
+@application.route("/reg_review_init/<name>/")
+def reg_review_init(name):
+    return render_template("reg_reviews.html", name=name)
 
-#리뷰
+@application.route("/reg_reviews", methods=['POST'])
+def reg_review():
+    data=request.form
+    image_file=request.files["file"]
+    image_file.save("static/image/{}".format(image_file.filename))
+    DB.reg_review(data, image_file.filename)
+    return redirect(url_for('view_review_detail'))
+
+@application.route("/submit_review_post", methods=['POST'])
+def reg_review_submit_post():
+    image_file=request.files["file"]
+    image_file.save("static/image/{}".format(image_file.filename))
+    data=request.form
+    DB.reg_review(data, image_file.filename)
+    return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
+
+
+#리뷰 전체 조회 화면
 @application.route("/review_list")
 def view_review():
     page = request.args.get("page", 0, type=int)
@@ -138,17 +208,20 @@ def reg_review_submit_post():
     DB.reg_review(data, image_file.filename)
     return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
+###채팅
 @application.route("/chat")
 def view_chat():
     return render_template("chat.html")
+
+#리뷰 상세 조회
 @application.route("/view_review_detail/<name>/")
 def view_review_detail(name):
-
     print("###name:",name)
     data = DB.get_review_byname(str(name))
     print("####data:",data)
     return render_template("review.html", name=name, data=data)
 
+###로그인
 @application.route("/login")
 def login():
     return render_template("login.html")
@@ -173,11 +246,13 @@ def find_user(self, id_, pw_):
             return True
     return False
 
+###로그아웃
 @application.route("/logout")
 def logout_user():
     session.clear()
     return redirect(url_for('view_list'))
 
+###회원가입
 @application.route("/signup_post", methods=['POST'])
 def register_user():
     data=request.form
@@ -214,15 +289,17 @@ def check_duplicate_id():
     else:
         return "duplicate"
 
-
+###
 @application.route("/submit_item_post", methods=['POST'])
 def reg_item_submit_post():
-    image_file=request.files["file"]
+
+    image_file=request.files.get("file")
     image_file.save("static/image/{}".format(image_file.filename))
     data=request.form
     DB.insert_item(data['name'], data, image_file.filename)
-    return render_template("submit_item_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
+    return render_template("view_detail.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
+###좋아요
 @application.route('/show_heart/<name>/', methods=['GET'])
 def show_heart(name):
     my_heart = DB.get_heart_byname(session['id'],name)
