@@ -11,7 +11,7 @@
                 <div class = "item-unit">
                     <br>
                     <h1 class = "price-unit">
-                        <span class="item-price"> {{ data.price }} </span>
+                        <span class="item-price"> {{ data.price | comma_format }} </span>
                         <span id = "price"> 원 </span>
                         <br>
                     </h1>
@@ -148,9 +148,6 @@
         $(document).ready(function () {
             showHeart();
         });
-
-        const rawPrice = {{ data.price }};
-        document.querySelector('.item-price').textContent = rawPrice.toLocaleString();
 
     </script>
 

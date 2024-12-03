@@ -308,6 +308,21 @@ div.detail {
     margin-top: 30;
 }
 
+.apply-btn {
+    margin-right: 10px;
+    margin-left: 10px;
+     display: inline-block;
+            padding: 10px 20px;
+            background-color: #5183bd;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            height: 40px;
+            font-size: 1em;
+}
+
 /* 좋아요 버튼 */
 #heart-btn {
     display: inline; /* 플렉스 박스로 변경 */
@@ -374,7 +389,7 @@ span.item-detail-txt {
     .menuBar {
         li a:hover{
             padding: 15px 15px;
-            background-color: #2E669E;
+            background-color: #5183bd;
             color: #FFFFFF;
             list-style-type: none;
         };
@@ -391,6 +406,7 @@ span.item-detail-txt {
         display: flex;
         margin: 25px;
         align-content: center;
+        cursor: pointer;
         
         input {
             flex: 1;
@@ -416,6 +432,7 @@ span.item-detail-txt {
             outline: none;
             justify-content: center;
             position: absolute;
+            cursor: pointer;
         }
         
         button:hover {
@@ -425,6 +442,7 @@ span.item-detail-txt {
             outline: none;
             justify-content: center;
             position: absolute;
+            cursor: pointer;
         }
         
         i { font-size: 20px;}
@@ -434,6 +452,7 @@ span.item-detail-txt {
 #loginContainer {
     justify-self: center;
     margin-top: 80px;
+
     #loginMain {
         justify-self: center;
         justify-items: center;
@@ -457,7 +476,7 @@ span.item-detail-txt {
 
     input {
         width: 420px;
-        height: 30px;
+        height: 45px;
         padding: 10px;
         padding-top: 5px; padding-bottom: 5px;
         margin: 5px;
@@ -489,7 +508,7 @@ span.item-detail-txt {
         color: #FFFFFF;
         cursor: pointer;
 
-        width: 450px;
+        width: 430px;
         border: none;
 
         a { text-decoration: none; color: #FFFFFF;}
@@ -566,7 +585,6 @@ h2 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 30px;
-    font-family: GmarketSansBold;
 }
 
 .sign_up_steps {
@@ -604,8 +622,6 @@ h2 {
     font-family: GmarketSans;
 }
 
-
-
 .sign_up_textarea {
     width: 100%;
     height: 150px;
@@ -626,8 +642,20 @@ h2 {
     margin-bottom: 10px;
 }
 
+#duplicate-btn {
+    padding: 5px 10px; /* 버튼 패딩 */
+    background-color: lightgrey; /* 배경색 */
+    color: #0096fb; /* 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 둥근 모서리 */
+    cursor: pointer; /* 클릭 가능한 커서 */
+    height: 25px; /* 버튼 높이 */
+    font-size: 0.8em; /* 글자 크기 */
+}
+
+
 .sign_up_instruction{
-    color: red;
+    color: #c83f3f;
     margin-bottom: 10px;
 
 }
@@ -660,6 +688,19 @@ h2 {
 
 .sign_up_check_button {
     margin-left: 10px;
+}
+
+/* 상품 배열 css */
+.table-name {
+    font-size: 20px;
+    font-family: "GMarketSansBold";
+    margin: 5px;
+    margin-left: 15px;
+}
+
+table.list{
+    border-collapse: separate;
+    /* border-spacing: 30px; */
 }
 
 
@@ -729,19 +770,27 @@ h2 {
 .home-search-box i {
     font-size: 24px; /* 아이콘 크기 증가 */
 }
-.home-side{
-width: 40%;
-height: 450px;
-padding: 10px;
-margin:10px;
+
+.home-side {
+    width: 40%;
+    padding: 10px;
+    margin: 10px;
 }
+
+
 
 .home-container {
     display: flex; /* Flexbox 사용 */
     width: 100%;
     justify-content: space-between; /* 양옆 배치 */
+    align-items: stretch; /* 자식 요소 높이 동일하게 설정 */
     padding: 20px;
     box-sizing: border-box; /* 패딩 포함한 너비 계산 */
+}
+
+.home-td {
+    font-size: 12px;
+    color: #888;
 }
 
 
@@ -757,13 +806,12 @@ margin:10px;
     white-space: normal;          /* 줄바꿈 허용 */
     overflow: hidden;             /* 넘치는 텍스트 숨김 */
     text-overflow:ellipsis;
-    white-space:nowrap;     /* '...' 표시 */
+    white-space: nowrap;     /* '...' 표시 */
     line-height: 1.5em;           /* 줄 간격 설정 */
     max-height: 3em;              /* 최대 높이 (2줄 * line-height) */
     word-wrap: break-word; 
-    margin-bottom:20px;
+    margin-bottom:5px;
 }
-
 
 /* 요 아래는 전부 chat에 관련된 css */
 

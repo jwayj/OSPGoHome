@@ -27,7 +27,7 @@
       
             <ul class = "top_menu">
                {% if session['id'] %}
-               <li><a href="/logout"><b>{{session['id']}}님 반갑습니다!</b>logout</a></li>
+               <li><a href="/logout"><b style="color: #2E669E;">{{session['id']}}</b><b>&nbsp;님 반갑습니다!</b> &nbsp;&nbsp;logout</a></li>
                {% else %}
                <li><a href="/login">login</a></li>
                {% endif %}

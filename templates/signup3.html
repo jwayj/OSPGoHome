@@ -1,7 +1,11 @@
 {% extends "index.html" %}
 {% block section %}
 <main class="sign_up_main">
-    <p class="sign_up_title">회원가입</p>
+    <div>
+        <p class="sign_up_title">회원가입</p>
+        <hr color="#2E669E" style="width: 250px; height: 2px;">
+        <br><br><br>
+    </div>
     
     <div class="sign_up_steps">
         <div class="sign_up_step sign_up_step1">
@@ -18,10 +22,16 @@
         </div>
     </div>
 
-    <div class="sign_up_step_content">
-        <p class="sign_up_title">회원가입 완료</p><br>
-        <p class="sign_up_p">{{ user_id }}님의 회원 가입이 성공적으로 완료되었습니다.</p>
-        <a href="/login" class="sign_up_login_button">로그인 바로가기</a>
+    <div class="sign_up_step_content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <br>
+        <hr style="width: 80%; border: 1px solid #ccc; margin: 10px 0;">
+        <br>
+        <img src="../../static/image/check.png" alt="확인" width="50px" height="50px">
+        <p class="sign_up_title" style="color: #8497BF;">회원가입 완료</p><br>
+        <p class="sign_up_p"><b style="color: #2E669E;">{{ user_id }}</b> 님의 회원 가입이<br>성공적으로 완료되었습니다.</p> 
+        <br> <br>
+        <a href="/login" class="sign_up_login_button" style="margin-top: 20px;">로그인 바로가기</a>
     </div>
+    
 </main>
 {% endblock section %}

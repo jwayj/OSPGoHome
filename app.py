@@ -132,10 +132,13 @@ def reg_item():
     flash("로그인이 필요합니다") #로그아웃 상태일 때 상품 등록 제한, 로그인페이지로 이동
     return redirect(url_for('login'))
     
-
 @application.route("/reg_review_init/<name>/")
 def reg_review_init(name):
-    return render_template("reg_reviews.html", name=name)
+    if 'id' in session:
+        return render_template("reg_reviews.html", name=name)
+    flash("로그인이 필요합니다") #로그아웃 상태일 때 리뷰 등록 제한, 로그인페이지로 이동
+    return redirect(url_for('login'))
+    
 
 @application.route("/reg_reviews", methods=['POST'])
 def reg_review():
@@ -152,7 +155,6 @@ def reg_review_submit_post():
     data=request.form
     DB.reg_review(data, image_file.filename)
     return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
-
 
 #리뷰 전체 조회 화면
 @application.route("/review_list")
@@ -182,31 +184,6 @@ def view_review():
         page=page,
         page_count=int((item_counts/per_page)+1),
         total=item_counts)
-  
-
-@application.route("/reg_review_init/<name>/")
-def reg_review_init(name):
-    if 'id' in session:
-        return render_template("reg_reviews.html", name=name)
-    flash("로그인이 필요합니다") #로그아웃 상태일 때 리뷰 등록 제한, 로그인페이지로 이동
-    return redirect(url_for('login'))
-    
-
-@application.route("/reg_reviews", methods=['POST'])
-def reg_review():
-    data=request.form
-    image_file=request.files["file"]
-    image_file.save("static/image/{}".format(image_file.filename))
-    DB.reg_review(data, image_file.filename)
-    return redirect(url_for('view_review_detail'))
-
-@application.route("/submit_review_post", methods=['POST'])
-def reg_review_submit_post():
-    image_file=request.files["file"]
-    image_file.save("static/image/{}".format(image_file.filename))
-    data=request.form
-    DB.reg_review(data, image_file.filename)
-    return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
 ###채팅
 @application.route("/chat")
@@ -313,6 +290,14 @@ def like(name):
 def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
     return jsonify({'msg': '안좋아요 완료!'})
+
+### 자릿수 포맷팅
+@application.template_filter('comma_format')
+def comma_format(value):
+    try:
+        return f"{int(value):,}"
+    except (ValueError, TypeError):
+        return value 
 
 
  
