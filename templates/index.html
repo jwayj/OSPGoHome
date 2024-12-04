@@ -11,8 +11,6 @@
       <script src="https://kit.fontawesome.com/97098c5e7a.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
       <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
    </head>
    <body>
       <header id="header" class ="indexHeader">
@@ -30,10 +28,10 @@
             <ul class = "top_menu">
                {% if session['id'] %}
                <li><a href="/logout"><b style="color: #2E669E;">{{session['id']}}</b><b>&nbsp;님 반갑습니다!</b> &nbsp;&nbsp;logout</a></li>
+               <li><a href="/chat">메시지</a></li>
                {% else %}
                <li><a href="/login">login</a></li>
                {% endif %}
-               <li><a href="/chat">메시지</a></li>
             </ul>
          </nav> 
       

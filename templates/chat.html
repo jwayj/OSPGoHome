@@ -96,6 +96,7 @@
                     unreadCount.classList.add("chat-hidden")
                 else
                     unreadCount.classList.remove("chat-hidden")
+                // 첫번째 자식 요소가 되도록 이동
                 chatRoomList.insertBefore(chatRoomElement, chatRoomList.firstElementChild)
             })
 

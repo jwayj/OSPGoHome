@@ -192,25 +192,25 @@ def view_review():
         page_count=int((item_counts/per_page)+1),
         total=item_counts)
 
-@application.route("/reg_review_init/<name>/")
-def reg_review_init(name):
-    return render_template("reg_reviews.html", name=name)
+# @application.route("/reg_review_init/<name>/")
+# def reg_review_init(name):
+#     return render_template("reg_reviews.html", name=name)
 
-@application.route("/reg_reviews", methods=['POST'])
-def reg_review():
-    data=request.form
-    image_file=request.files["file"]
-    image_file.save("static/image/{}".format(image_file.filename))
-    DB.reg_review(data, image_file.filename)
-    return redirect(url_for('view_review_detail'))
+# @application.route("/reg_reviews", methods=['POST'])
+# def reg_review():
+#     data=request.form
+#     image_file=request.files["file"]
+#     image_file.save("static/image/{}".format(image_file.filename))
+#     DB.reg_review(data, image_file.filename)
+#     return redirect(url_for('view_review_detail'))
 
-@application.route("/submit_review_post", methods=['POST'])
-def reg_review_submit_post():
-    image_file=request.files["file"]
-    image_file.save("static/image/{}".format(image_file.filename))
-    data=request.form
-    DB.reg_review(data, image_file.filename)
-    return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
+# @application.route("/submit_review_post", methods=['POST'])
+# def reg_review_submit_post():
+#     image_file=request.files["file"]
+#     image_file.save("static/image/{}".format(image_file.filename))
+#     data=request.form
+#     DB.reg_review(data, image_file.filename)
+#     return render_template("submit_review_post.html", data=data, img_path= "static/image/{}".format(image_file.filename))
 
 @application.route("/view_review_detail/<name>/")
 def view_review_detail(name):
