@@ -1,42 +1,226 @@
 {% extends "index.html" %}
 {% block section %}
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 채팅</title>
-</head>
-<body>
-    <div class="chat-container"> <!--왼쪽 탭: 채팅방-->
-        <div class="chat-room-list">
-            <div class="chat-room" id="chatRoom1"> <!--이거 chat-room-상대방_id에 중괄호 2개로 수정해야 해요 (JinJa)-->
-                <p><strong>사용자 B</strong></p>
-                <p>마지막 메시지 미리보기...</p> <!--여기도 JinJa-->
-            </div>
-            <div class="chat-room" id="chatRoom2">
-                <p><strong>사용자 D</strong></p>
-                <p>마지막 메시지 미리보기...</p>
-            </div>
+<div class="chat-container"> <!--왼쪽 탭: 채팅방-->
+    <div class="chat-room-list" id="chat-room-list">
+    </div>
+    <div class="chat-box">
+        <div class="chat-messages" id="chatMessages">
         </div>
-        <div class="chat-box">
-            <div class="chat-messages" id="chatMessages"> <!--이거 우선은 예시로 style 봐야 하니까 이렇게 했는데 바꿔야 할 것 같아요... Jinja같은 걸로-->
-                <div class="chat-message received"> <!--정렬하려고 received/sent 나눴어요-->
-                    <span class="chat-user-id">red</span>
-                    <span class="chat-message-content">안녕하세요!</span>
-                    <span class="chat-message-time">오후 3:15</span>
-                </div>
-                <div class="chat-message sent">
-                    <span class="chat-user-id">blue</span>
-                    <span class="chat-message-content">안녕하세요!</span>
-                    <span class="chat-message-time">오후 3:16</span>
-                </div>
-            </div>
-            <div class="chat-input"> <!--이거 하단에 입력창입니다-->
-                <input type="text" id="chat-messageInput" placeholder="Enter 키를 눌러 메시지를 보내세요.">
-                <button id="chat-sendButton">보내기</button>
-            </div>
+        <div class="chat-input"> <!--이거 하단에 입력창입니다-->
+            <input type="text" id="chat-messageInput" placeholder="Enter 키를 눌러 메시지를 보내세요.">
+            <button id="chat-sendButton">보내기</button>
         </div>
     </div>
-</body>
-</html>
+</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, ref, onChildAdded, push, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+    const user = "{{user}}"  // 현재 로그인된 유저 아이디
+    const opponent = "{{opponent}}"  // 채팅 상대 아이디
+    let roomId = 'room-'+user+"-"+opponent;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const app = initializeApp({
+            "apiKey": "AIzaSyBgcRnwAmQFgADDKW035zKVoVqac39dl2I",
+            "authDomain": "ospgohome.firebaseapp.com",
+            "databaseURL": "https://ospgohome-default-rtdb.firebaseio.com",
+            "projectId": "ospgohome",
+            "storageBucket": "ospgohome.firebasestorage.app",
+            "messagingSenderId": "170580582802",
+            "appId": "1:170580582802:web:9b45963e37ff7bd3ac214b",
+            "measurementId": "G-FQGX56BWXT"
+        });
+        const db = getDatabase(app);
+
+        // 메시지 입력창 요소 선택
+        const messageInput = document.getElementById("chat-messageInput");
+        // 채팅 메시지 목록 요소 선택
+        const chatMessages = document.getElementById("chatMessages");
+        // 보내기 버튼 요소 선택
+        const sendButton = document.getElementById("chat-sendButton");
+        // 채팅방 리스트 요소
+        const chatRoomList = document.getElementById("chat-room-list")
+        
+        let roomMessagesRef;
+
+        // 추가된 채팅방 감지
+        const userRoomsRef = ref(db, "UserRooms/"+user)
+        onChildAdded(userRoomsRef, (snapshot) => {
+            getChatRoom(snapshot.val(), snapshot.key);
+        })
+
+        // 현재 채팅방 id 가져와서 구독
+        const nowRoomRef = ref(db, "UserRooms/"+user+"/"+opponent)
+        get(nowRoomRef).then( (snapshot) =>{
+            if(snapshot.exists()) roomId = snapshot.val().roomId;
+
+            roomMessagesRef = ref(db, "RoomMessages/"+roomId)
+            onChildAdded(roomMessagesRef, (snapshot) => {
+                getMessage(snapshot.val());
+            }) 
+        })
+
+        // 데이터베이스에서 새 채팅방이 감지되었을 시 채팅방을 추가하는 함수
+        function getChatRoom(room, opponent_id) {
+            console.log("get chat room: "+room.roomId+" "+opponent_id)
+            // 채팅방 요소 생성
+            const chatRoomElement = document.createElement("div");
+            chatRoomElement.classList.add("chat-room");
+            chatRoomElement.addEventListener('click', function(){  
+                window.location.href = '/chat/'+opponent_id  // /chat/user_id
+            })  // 클릭 시 해당 채팅방으로 이동
+            
+            // 채팅 대상을 나타내는 요소 생성
+            const opponentUserp = document.createElement("p");
+            const opponentUser = document.createElement("strong");
+            opponentUser.textContent = opponent_id;
+            opponentUserp.appendChild(opponentUser);
+
+            // 마지막 메세지 미리보기 생성
+            const lastMessage = document.createElement("p");
+            const otherRoomMessagesRef = ref(db, "RoomMessages/"+room.roomId)
+            onChildAdded(otherRoomMessagesRef, (snapshot) => {
+                lastMessage.textContent = snapshot.val().message;
+            })  // 실시간 업데이트 
+
+            // 안 읽은 메세지 개수 생성
+            const unreadCount = document.createElement("span");
+            unreadCount.classList.add("chat-unread-count");
+
+            const unreadRef = ref(db, "UserRooms/"+user+"/"+opponent_id+"/unread")
+            onValue(unreadRef, (snapshot) => {
+                unreadCount.textContent = snapshot.val();
+                if(opponent_id==opponent) set(unreadRef, 0)
+                if(unreadCount.textContent==0 || opponent_id==opponent)
+                    unreadCount.classList.add("chat-hidden")
+                else
+                    unreadCount.classList.remove("chat-hidden")
+                // 첫번째 자식 요소가 되도록 이동
+                chatRoomList.insertBefore(chatRoomElement, chatRoomList.firstElementChild)
+            })
+
+            // 자식 요소로 추가
+            const chatInfo = document.createElement("div");
+            chatInfo.classList.add("chat-info");
+            chatInfo.appendChild(opponentUserp);
+            chatInfo.appendChild(lastMessage);
+            chatRoomElement.appendChild(chatInfo);
+            chatRoomElement.appendChild(unreadCount);
+
+            chatRoomList.appendChild(chatRoomElement);
+        }
+
+        // 메시지를 전송하는 함수
+        function postMessage() {
+            console.log("post message");
+            // 입력된 메시지 내용을 가져와 공백을 제거
+            const messageText = messageInput.value.trim();
+            // 메시지 내용이 비어 있지 않다면 실행
+            if (messageText !== "") {  
+                // 입력창 초기화 (비워줌)
+                messageInput.value = "";
+
+                // UserRooms/{{user}}/{{opponent}} once로 얻어와서 exist면 
+                // UserRooms/{{opponent}}/{{user}}에 unread만 +1해서 넣고
+                // 아니면 둘다 새로 만들어서 넣기
+                const opponentRoomref = ref(db, "UserRooms/"+opponent+"/"+user)
+                get(opponentRoomref).then((snapshot) => {
+                    if(snapshot.exists()){
+                        const unreadRef = ref(db, "UserRooms/"+opponent+"/"+user)
+                        update(unreadRef, {'unread':snapshot.val().unread+1});
+                    }
+                    else{
+                        set(opponentRoomref,{
+                            'roomId':roomId,
+                            'unread':1 
+                        })
+                        const userRoomRef = ref(db, "UserRooms/"+user+"/"+opponent)
+                        set(userRoomRef,{
+                            'roomId':roomId,
+                            'unread':0 
+                        })
+                    }
+                })
+
+                // RoomMessages/roomId에 push로 메세지 추가
+                push(roomMessagesRef, {
+                    'user':user,
+                    'timestamp':Date.now(),
+                    'message':messageText
+                })
+            }
+        }
+
+        function getMessage(msg){
+
+            // 새로운 메시지 요소(div) 생성
+            const messageElement = document.createElement("div");
+
+            // 메시지에 "chat-message"와 "sent" 클래스를 추가하여 스타일 지정
+            if(msg.user == user)
+                messageElement.classList.add("chat-message", "sent");
+            else
+                messageElement.classList.add("chat-message", "received");
+
+            // 보낸 사람의 ID를 나타내는 요소(span) 생성
+            const userIdSpan = document.createElement("span");
+            userIdSpan.classList.add("chat-user-id");
+            userIdSpan.textContent = msg.user;
+
+            // 메시지 내용을 나타내는 요소(span) 생성
+            const messageContentSpan = document.createElement("span");
+            messageContentSpan.classList.add("chat-message-content");
+            messageContentSpan.textContent = msg.message;  // 입력된 메시지 내용 설정
+
+            // 메시지를 보낸 시간을 나타내는 요소(span) 생성
+            const messageTimeSpan = document.createElement("span");
+            messageTimeSpan.classList.add("chat-message-time");
+
+            const currentTime = new Date();
+            const msgTime = new Date(msg.timestamp);
+            if(currentTime.getFullYear() != msgTime.getFullYear()){
+                const year = msgTime.getFullYear();
+                const month = msgTime.getMonth()+1;
+                const date = msgTime.getDate();
+                messageTimeSpan.textContent = `${year}년 ${month}월 ${date}일 `;
+            }
+            else if(currentTime.getMonth() != msgTime.getMonth()){
+                const month = msgTime.getMonth()+1;
+                const date = msgTime.getDate();
+                messageTimeSpan.textContent = `${month}월 ${date}일 `;
+            }
+            else if(currentTime.getDate() != msgTime.getDate()){
+                const date = msgTime.getDate();
+                messageTimeSpan.textContent = `${date}일 `;
+            }
+            const hours = msgTime.getHours() > 12 ? msgTime.getHours() - 12 : msgTime.getHours();
+            const minutes = msgTime.getMinutes().toString().padStart(2, "0");
+            const period = msgTime.getHours() >= 12 ? "오후" : "오전";
+            messageTimeSpan.textContent += `${period} ${hours}:${minutes}`;
+            
+            // 메시지 요소에 ID, 내용, 시간 요소를 추가
+            messageElement.appendChild(userIdSpan);
+            messageElement.appendChild(messageContentSpan);
+            messageElement.appendChild(messageTimeSpan);
+            // 채팅 메시지 목록에 새 메시지 요소 추가
+            chatMessages.appendChild(messageElement);
+
+            // 스크롤을 아래로 자동으로 이동시켜 최근 메시지가 보이도록 설정
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    
+        // Enter 키를 눌렀을 때 메시지 전송 이벤트 리스너 추가
+        messageInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                postMessage();  // Enter 키를 누르면 postMessage 함수 호출
+            }
+        });
+    
+        // 보내기 버튼 클릭 시 메시지 전송 이벤트 리스너 추가
+        sendButton.addEventListener("click", function() {
+            postMessage();  // 보내기 버튼 클릭 시 postMessage 함수 호출
+        });
+    });
+</script>
 {% endblock section %}

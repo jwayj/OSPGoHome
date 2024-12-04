@@ -27,11 +27,11 @@
       
             <ul class = "top_menu">
                {% if session['id'] %}
-               <li><a href="/logout"><b>{{session['id']}}님 반갑습니다!</b>logout</a></li>
+               <li><a href="/logout"><b style="color: #2E669E;">{{session['id']}}</b><b>&nbsp;님 반갑습니다!</b> &nbsp;&nbsp;logout</a></li>
+               <li><a href="/chat">메시지</a></li>
                {% else %}
                <li><a href="/login">login</a></li>
                {% endif %}
-               <li><a href="/chat">메시지</a></li>
             </ul>
          </nav> 
       
@@ -39,8 +39,7 @@
             <ul>
                <li> <a href="/list">상품</a></li>
                <li> <a href="/reg_items">상품 등록</a></li>
-               <li> <a href="/review_list">리뷰 목록</a></li>
-               <li> <a href="/reg_reviews">리뷰 등록</a></li>
+               <li> <a href="/review_list">리뷰 조회</a></li>
             </ul>
          </nav>  
       </header>
