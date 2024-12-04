@@ -816,7 +816,7 @@ table.list{
 /* 전체 컨테이너 설정 */
 .chat-container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 150px);
     font-family: Arial, sans-serif;
 }
 
@@ -841,6 +841,7 @@ table.list{
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
 /* 채팅방에 마우스 올렸을 때*/
 .chat-room:hover {
     background-color: #eaeaea;
@@ -848,6 +849,13 @@ table.list{
 
 .chat-info {
     flex-grow: 1; /* 남은 공간을 사용 */
+    padding-left: 3%;
+    max-width: 90%;
+}
+.chat-info p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-unread-count {
@@ -866,7 +874,7 @@ table.list{
 
 /* 채팅 박스(좌측 탭 빼고 모두 포함) */
 .chat-box {
-    width: 70%;
+    flex-grow: 1; /* 남은 공간을 사용 */
     display: flex;
     flex-direction: column;
 }
