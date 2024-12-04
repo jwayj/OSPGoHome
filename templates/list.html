@@ -1,26 +1,78 @@
 {% extends "index.html" %}
 {% block section %}
+
+<script>
+    // 필터 선택 이벤트 처리
+    function applyFilters() {
+        const price = document.getElementById("price").value;
+        const status = document.getElementById("status").value;
+        const addr = document.getElementById("addr").value;
+        const availability=document.getElementById("availability").value;
+
+        let queryParams = `?price=${price}&status=${status}&addr=${addr}&availability=${availability}`;
+        window.location.href = "/list" + queryParams;
+    }
+
+    // 필터 적용 버튼
+    document.getElementById("price").addEventListener("change", applyFilters);
+    document.getElementById("status").addEventListener("change", applyFilters);
+    document.getElementById("addr").addEventListener("change", applyFilters);
+    document.getElementById("availability").addEventListener("change", applyFilters);
+</script>
+
 <div class="filter-bar">
-    <select name="price" id="price">
-        <option value="">가격 선택</option>
-        <option value="low">낮은 가격순</option>
-        <option value="high">높은 가격순</option>
-    </select>
-    <select name="condition" id="condition">
-        <option value="">상태 선택</option>
-        <option value="new">신상품</option>
-        <option value="used">중고상품</option>
-    </select>
-    <select name="region" id="region">
-        <option value="">지역 선택</option>
-        <option value="seoul">서울</option>
-        <option value="busan">부산</option>
-    </select>
-    <select name="availability" id="availability">
-        <option value="">판매 여부 선택</option>
-        <option value="available">판매 중</option>
-        <option value="sold_out">품절</option>
-    </select>
+    <div>
+        <select name="price" id="price">
+            <option value="all" {% if price_order=="all" %}selected{% endif %}>가격 선택</option>
+            <option value="low" {% if price_order=="low" %}selected{% endif %}>낮은 가격순</option>
+            <option value="high" {% if price_order=="high" %}selected{% endif %}>높은 가격순</option>
+        </select>
+    </div>
+
+    <div>
+        <select name="status" id="status">
+            <option value="all" {% if status=="all" %}selected{% endif %}>상태 선택</option>
+            <option value="new" {% if status=="new" %}selected{% endif %}>미개봉 새 상품</option>
+            <option value="noused" {% if status=="noused" %}selected{% endif %}>미사용 상품</option>
+            <option value="oftenused" {% if status=="oftenused" %}selected{% endif %}>사용감 적음</option>
+            <option value="manyused" {% if status=="manyused" %}selected{% endif %}>사용감 많음</option>
+            <option value="broken" {% if status=="broken" %}selected{% endif %}>고장난 상품</option>
+        </select>
+
+    </div>
+    
+    <div>
+        <select name="addr" id="addr">
+            <option value="all" {% if addr=="all" %}selected{% endif %}>지역 선택</option>
+            <option value="서울특별시" {% if addr=="서울특별시" %}selected{% endif %}>서울특별시</option>
+            <option value="부산광역시" {% if addr=="부산광역시" %}selected{% endif %}>부산광역시</option>
+            <option value="대구광역시" {% if addr=="대구광역시" %}selected{% endif %}>대구광역시</option>
+            <option value="인천광역시" {% if addr=="인천광역시" %}selected{% endif %}>인천광역시</option>
+            <option value="광주광역시" {% if addr=="광주광역시" %}selected{% endif %}>광주광역시</option>
+            <option value="대전광역시" {% if addr=="대전광역시" %}selected{% endif %}>대전광역시</option>
+            <option value="울산광역시" {% if addr=="울산광역시" %}selected{% endif %}>울산광역시</option>
+            <option value="세종특별자치시" {% if addr=="세종특별자치시" %}selected{% endif %}>세종특별자치시</option>
+            <option value="경기도" {% if addr=="경기도" %}selected{% endif %}>경기도</option>
+            <option value="강원도" {% if addr=="강원도" %}selected{% endif %}>강원도</option>
+            <option value="충청북도" {% if addr=="충청북도" %}selected{% endif %}>충청북도</option>
+            <option value="충청남도" {% if addr=="충청남도" %}selected{% endif %}>충청남도</option>
+            <option value="전라북도" {% if addr=="전라북도" %}selected{% endif %}>전라북도</option>
+            <option value="전라남도" {% if addr=="전라남도" %}selected{% endif %}>전라남도</option>
+            <option value="경상북도" {% if addr=="경상북도" %}selected{% endif %}>경상북도</option>
+            <option value="경상남도" {% if addr=="경상남도" %}selected{% endif %}>경상남도</option>
+            <option value="제주특별자치도" {% if addr=="제주특별자치도" %}selected{% endif %}>제주특별자치도</option>
+        </select>
+    </div>
+
+    <div>
+        <select name="availability" id="availability">
+            <option value="all" {% if availability=="all" %}selected{% endif %}>판매 여부 선택</option>
+            <option value="available" {% if availability=="available" %}selected{% endif %}>판매 중</option>
+            <option value="sold_out" {% if availability=="sold_out" %}selected{% endif %}>품절</option>
+        </select>
+    </div>
+
+    <button class="apply-btn" id="apply-filters" onclick="applyFilters()">적용</button>
 </div>
 
 <main class="post-list">
@@ -30,25 +82,35 @@
         <p>
         상품 리스트 -- 현재까지 {{total}}개 등록됨
         </p>
-        <table>
+        <table class="list">
             <tr>
-            {% for key, value in row1 %}
-            <td>상품이름: {{key}}</td>
-            {% endfor %}
+                {% for key, value in row1 %}
+                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="250px" height="250px" style="border-radius: 20px; margin: 15px; margin-bottom: 0px;"></td>
+                {% endfor %}
             </tr>
             <tr>
-            {% for key, value in row1 %}
-            <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
-            {% endfor %}
+                {% for key, value in row1 %}
+                <td style="padding-left: 10px;">
+                    <div style ="padding-left: 10px;">
+                        <p class="table-name" >{{key}}</p>
+                        <p style="margin: 0px; margin-bottom: 20px; margin-left: 15px;"> {{ value.price | comma_format }} 원 </p>
+                    </div>
+                </td>
+                {% endfor %}
             </tr>
             <tr>
                 {% for key, value in row2 %}
-                <td>상품이름: {{key}}</td>
+                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="250px" height="250px" style="border-radius: 20px; margin: 15px; margin-bottom: 0px;"></td>
                 {% endfor %}
                 </tr>
                 <tr>
                 {% for key, value in row2 %}
-                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="300px" height="300px"></td>
+                <td>
+                    <div style ="padding-left: 10px;">
+                        <p class="table-name">{{key}}</p>
+                        <p style="margin: 0px; margin-bottom: 20px; margin-left: 15px;"> {{ value.price | comma_format }} 원 </p>
+                    </div>
+                </td>
                 {% endfor %}
             </tr>
         </table>
@@ -59,7 +121,7 @@
                 <ul style="list-style-type: none;">
                      <li>
                         {% for i in range(page_count)%}
-                        <a href="{{url_for('view_list', page=i)}}">{{i+1}}</a>
+                        <a href="/list?page={{ i }}&status={{ status }}&addr={{ addr }}&price={{ price_order }}&availability={{ availability }}">{{i+1}}</a>
                         {% endfor %} </li>
                 </ul>
             </div>

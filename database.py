@@ -17,6 +17,7 @@ class DBhandler:
             "price": data['price'],
             "seller": data['seller'],
             "addr": data['addr'],
+            "gun":data['gun'],
             "img_path": img_path,
             "status": data['status'],
             "directtransaction": data['directtransaction']
@@ -102,6 +103,7 @@ class DBhandler:
                 target_value=res.val()
         return target_value
 
+    #heart
     def get_heart_byname(self, uid, name):
         hearts = self.db.child("heart").child(uid).get()
         target_value=""
@@ -121,6 +123,61 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
+    
+    #list.html에서 status에 따라 다른 값 출력
+    def get_items_bystatus_and_addr(self, cate1, cate2):
+        print("카테고리",cate1, "지역",cate2)
+        items = self.db.child("item").get() 
+        target_value=[]
+        target_key=[]
+        for res in items.each():
+            value = res.val()
+            key_value = res.key()
+            if value['status'] == cate1 and value['addr'] == cate2:
+                target_value.append(value) 
+                target_key.append(key_value)
+        print("######target_value",target_value) 
+        new_dict={}
+        for k,v in zip(target_key,target_value):
+            new_dict[k]=v
+        return new_dict
+    
+    def get_items_bystatus(self, cate):
+        print("카테고리",cate)
+        items = self.db.child("item").get() 
+        target_value=[]
+        target_key=[]
+        for res in items.each():
+            value = res.val()
+            key_value = res.key()
+
+            if value['status'] == cate:
+                target_value.append(value) 
+                target_key.append(key_value)
+        print("######target_value",target_value) 
+        new_dict={}
+        for k,v in zip(target_key,target_value):
+            new_dict[k]=v
+        return new_dict
+    
+    def get_items_byaddr(self, cate):
+        print("지역",cate)
+        items = self.db.child("item").get() 
+        target_value=[]
+        target_key=[]
+        for res in items.each():
+            value = res.val()
+            key_value = res.key()
+
+            if value['addr'] == cate:
+                target_value.append(value) 
+                target_key.append(key_value)
+        print("######target_value",target_value) 
+        new_dict={}
+        for k,v in zip(target_key,target_value):
+            new_dict[k]=v
+        return new_dict
+    
     
     def get_last_chatroom(self, user_id):
         user_rooms = self.db.child("UserRooms").child(user_id).get()

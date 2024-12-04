@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block section %}
-<div class="home-container">
+<div class="home-container" >
     <div class="home-middle">
         <h1>사기 피해 사례 검색</h1>
         <form class="home-search-box">
@@ -15,14 +15,47 @@
     </div>
 
     <!-- Review Section -->
-    <div class="home-side">
-        <h1>Review</h1>
+    <div class="home-side" style="margin-left: 40px;">
+        <h1 style="font-family: GmarketSansLight;">REVIEW</h1>
         <table>
             {% for row in reviews %}
             <tr class="home-tr">
                 {% for key, value in row %}
                 <td class="home-reivewTitle" onclick="location.href='/view_review_detail/{{ key }}/';" style="cursor:pointer;">
-                    제목: {{ value.reviewTitle }}</td>
+                    <div class="star-review" style="font-size:20px; margin-bottom: 10px;">
+                        {% if value['rating'] == "1" %}
+                        ★☆☆☆☆
+                        {% endif %}
+                        {% if value['rating'] == "2" %}
+                        ★★☆☆☆
+                        {% endif %}
+                        {% if value['rating'] == "3" %}
+                        ★★★☆☆
+                        {% endif %}
+                        {% if value['rating'] == "4" %}
+                        ★★★★☆
+                        {% endif %}
+                        {% if value['rating'] == "5" %}
+                        ★★★★★
+                        {% endif %}  
+                    </div>
+                    {{ value.reviewTitle }}</td>
+                {% endfor %}
+                {% for key, value in row %}
+                <td class="home-td"> 
+                    {% if value['category'] == "digital" %}
+                    디지털 기기
+                    {% endif %}
+                    {% if value['category'] == "furniture" %}
+                    가구
+                    {% endif %}
+                    {% if value['category'] == "clothes" %}
+                    의류
+                    {% endif %}
+                    {% if value['category'] == "others" %}
+                    기타
+                    {% endif %}
+                </td>
                 {% endfor %}
             </tr>
             <tr class="home-tr">
@@ -37,20 +70,27 @@
     </div>
 </div>
 
+    
+
     <!-- Items Section -->
-    <div>
-        <h1>오늘의 추천 상품</h1>
+    <div style="margin-left: 30px;">
+        <hr style="margin-right: 30px;">
+        <br>
+        <h1 style="font-family: GmarketSansLight;">오늘의 추천 상품</h1>
         <table>
             {% for row in rows %}
             <tr>
                 {% for key, value in row %}
-                <td>상품이름: {{ key }}</td>
+                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="250px" height="250px" style="border-radius: 20px; margin: 25px; margin-bottom: 0px;"></td>
                 {% endfor %}
             </tr>
             <tr>
                 {% for key, value in row %}
-                <td onclick="location.href='/view_detail/{{ key }}/';" style="cursor:pointer;">
-                    <img src="{{ url_for('static', filename='image/' + value.img_path) }}" width="300px" height="300px">
+                <td style="padding-left: 10px;">
+                    <div style ="padding-left: 10px;">
+                        <p class="table-name" style="margin: 5px; margin-left: 15px;">{{key}}</p>
+                        <p style="margin: 0px; margin-bottom: 20px; margin-left: 15px;"> {{ value.price | comma_format }} 원 </p>
+                    </div>
                 </td>
                 {% endfor %}
             </tr>

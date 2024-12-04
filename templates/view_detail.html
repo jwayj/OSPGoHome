@@ -1,68 +1,100 @@
 {% extends "index.html" %}
  {% block section %}
-    <div>
-        <h1>
-            상품명 : {{data.name}}
+    <div class = "detail" >
+        <h1 class = "item-title">
+            [ 판매 중 ] {{data.name}}
         </h1>
-        
+        <hr style="min-width: 1020px;">
         <div style="display: inline-flex;">
-            <img src="../../static/image/{{data.img_path}}" alt="상품 사진" width="600px" height="600px">
+            <img src="../../static/image/{{data.img_path}}" alt="상품 사진" width="480px" height="480px" style="margin: 20px;">
             <div>
-                <div style="margin:20px">
-                <h1>
-                    <i class="fa fa-heart" id="heart" ></i>
+                <div class = "item-unit">
                     <br>
-                    판매중
-                    
-                </h1>
-                <p>
-                    가격: {{data.price}}
-                    <br><br>
-                    상태:
-                    {% if data['status']=="new" %}
-                    미개봉 새 상품
-                    {% endif %}
-                    {% if data['status']=="noused" %}
-                    미사용 상품
-                    {% endif %}
-                    {% if data['status']=="oftenused" %}
-                    사용감 적음
-                    {% endif %}
-                    {% if data['status']=="manyused" %}
-                    사용감 많음
-                    {% endif %}
-                    {% if data['status']=="broken" %}
-                    고장난 상품
-                    {% endif %}
-                    
-                    <br><br>
-                    판매자 ID: {{data.seller}}
-                    <br><br>
-                    거래 희망 장소: {{data.addr}}
-                    <br><br>
-                    직거래 가능: {{data.directtransaction}}
-                    <br><br>
-                    판매자 별점:                 
-                    <br><br>
-                </p>
-                
-                <div style="display: inline-flex;">
+                    <h1 class = "price-unit">
+                        <span class="item-price"> {{ data.price | comma_format }} </span>
+                        <span id = "price"> 원 </span>
+                        <br>
+                    </h1>
+                    <hr>
+                    <button id ="heart-btn" style="justify-content: center;"> 
+                        <i class="fa fa-heart" id="heart-icon"></i>
+                        <p id = "heart-txt"> 좋아요  </p> 
+                    </button>
+                    <div id="item-info">
+                        <br><br>
+
+                        <table class="info">
+                            <tr>
+                                <td> <span class="item-detail-txt"> 상품 상태 </span> </td>
+                                <td> </td>
+                                <td>{% if data['status']=="new" %}
+                                    미개봉 새 상품
+                                    {% endif %}
+                                    {% if data['status']=="noused" %}
+                                    미사용 상품
+                                    {% endif %}
+                                    {% if data['status']=="oftenused" %}
+                                    사용감 적음
+                                    {% endif %}
+                                    {% if data['status']=="manyused" %}
+                                    사용감 많음
+                                    {% endif %}
+                                    {% if data['status']=="broken" %}
+                                    고장난 상품
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> <span class="item-detail-txt"> 판매자 ID </span> </td>
+                                <td> </td>
+                                <td> {{data.seller}} </td>
+                            </tr>
+                            <tr>
+                                <td> <span class="item-detail-txt"> 거래 희망 장소 </span> </td>
+                                <td> </td>
+                                <td> {{data.addr}} </td>
+                            </tr>
+                            <tr>
+                                <td> <span class="item-detail-txt"> 직거래 가능 </span> </td>
+                                <td> </td>
+                                <td> {{data.directtransaction}} </td>
+                            </tr> 
+                            <tr>
+                                <td> <span class="item-detail-txt"> 판매자 별점 </span> </td>
+                                <td> </td>
+                            </tr> 
+                        </table>
+                        <br>
+                    </div>
+                </div>
+
+                <div style="display: inline-flex; margin-left: 30px;">
                     <button type="calltoseller" class="btn">
-                        판매자에게 연락하기
+                        판매자 연락
                     </button>
                     <button type="showsellerreivew" class="btn">
-                        판매자 리뷰 보기
+                        판매자 리뷰
                     </button>
                 </div>
+
             </div>
         </div>
+
+        <div id="detail-info">
+            <p style="font-size: 20px;"> 상품 정보 </p>
+            <hr> <br>
+            <p>{{data.explanation}}</p>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+            <button class="btn" onclick="location.href='/reg_review_init/{{name}}/';">
+                리뷰등록
+            </button>
+        </div>
+
     </div>
-    <div>
-        <p>세부 정보:{{data.explanation}}</p>
-    </div>
-    <button onclick="location.href='/reg_review_init/{{name}}/';">
-        리뷰등록
-        </button>
+
+   
     <script>
         function showHeart() {
         $.ajax({
@@ -73,13 +105,15 @@
             let my_heart = response['my_heart'];
             if (my_heart['interested'] == 'Y')
             {
-            $("#heart").css("color","red");
-            $("#heart").attr("onclick","unlike()");
+            $("#heart-txt").css("color","#f0608e");
+            $("#heart-icon").css("color","#f0608e");
+            $("#heart-btn").attr("onclick","unlike()");
             }
             else
             {
-            $("#heart").css("color","grey");
-            $("#heart").attr("onclick","like()");
+            $("#heart-txt").css("color","grey");
+            $("#heart-icon").css("color","grey");
+            $("#heart-btn").attr("onclick","like()");
             }
             //alert("showheart!")
             }
@@ -114,6 +148,7 @@
         $(document).ready(function () {
             showHeart();
         });
+
     </script>
 
  {% endblock section %}

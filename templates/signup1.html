@@ -1,11 +1,16 @@
 {% extends "index.html" %}
 {% block section %}
 <main class="sign_up_main">
-    <p class="sign_up_title">회원가입</p>
+    <div>
+        <p class="sign_up_title">회원가입</p>
+        <hr color="#2E669E" style="width: 250px; height: 2px;">
+        <br><br><br>
+    </div>
     
     <div class="sign_up_steps">
         <div class="sign_up_step sign_up_step1 active">
             <span>STEP 1</span>
+            <div class="step-divider"></div> 
             <p class="sign_up_p">사이트 안내</p>
         </div>
         <div class="sign_up_step sign_up_step2">
@@ -24,7 +29,7 @@
             <label class="sign_up_label">
                 <input type="checkbox" name="agree" required class="sign_up_checkbox"> 해당 내용을 확인했습니다.
             </label>
-            <button type="submit" class="sign_up_next_button">다음</button>
+            <button type="submit" class="sign_up_next_button" style="float: right;">다음</button>
         </form>
     </div>
 </main>
