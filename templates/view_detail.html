@@ -2,11 +2,20 @@
  {% block section %}
     <div class = "detail" >
         <h1 class = "item-title">
-            [ 판매 중 ] {{data.name}}
+            {% if data['availability'] == "sold_out" %}
+            [ 품절 ] 
+            {% endif %}
+            {% if data['availability'] == "available" %}
+            [ 판매 중 ] 
+            {% endif %}
+            {{data.name}}
         </h1>
         <hr style="min-width: 1020px;">
         <div style="display: inline-flex;">
-            <img src="../../static/image/{{data.img_path}}" alt="상품 사진" width="480px" height="480px" style="margin: 20px;">
+            <img src="{{ url_for('static', filename='image/' + data.img_path) }}" alt="이미지 없음" class="rounded-img-big" width="480px" height="480px" style="margin: 20px;" onclick="openPopup('popup1')">
+            <div class="popup" id="popup1" onclick="closePopup('popup1')">
+               <img src="{{ url_for('static', filename='image/' + data.img_path) }}" alt="이미지 없음">
+            </div>
             <div>
                 <div class = "item-unit">
                     <br>

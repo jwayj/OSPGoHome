@@ -77,24 +77,14 @@
         <hr style="margin-right: 30px;">
         <br>
         <h1 style="font-family: GmarketSansLight;">오늘의 추천 상품</h1>
-        <table>
-            {% for row in rows %}
-            <tr>
-                {% for key, value in row %}
-                <td onclick="location.href='/view_detail/{{key}}/';" style="cursor:pointer;"><img src="static/image/{{value.img_path}}" width="250px" height="250px" style="border-radius: 20px; margin: 25px; margin-bottom: 0px;"></td>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for key, value in row %}
-                <td style="padding-left: 10px;">
-                    <div style ="padding-left: 10px;">
-                        <p class="table-name" style="margin: 5px; margin-left: 15px;">{{key}}</p>
-                        <p style="margin: 0px; margin-bottom: 20px; margin-left: 15px;"> {{ value.price | comma_format }} 원 </p>
-                    </div>
-                </td>
-                {% endfor %}
-            </tr>
+        <div class="post-list">
+            {% for key, value in posts %}
+                <div class="post-item" onclick="location.href='/view_detail/{{key}}/'">
+                    <img src="{{ url_for('static', filename='image/' + value.img_path) }}" alt={{key}} class="rounded-img-small">
+                    <div class="post-item text" style="font-size:21px; margin-top:5px; font-family:'GMarketSansBold'">{{key}}</div>
+                    <div class="post-item text">{{ value.price | comma_format }} 원</div>
+                </div>
             {% endfor %}
-        </table>
+            </div>
     </div>
 {% endblock section %}
