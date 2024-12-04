@@ -1,99 +1,35 @@
 {% extends "index.html" %}
 {% block section %}
 
-
-<main class="post-list">
-    {% if total > 0 %}
-    <div style="width:1600px">
-        <p>
-            리뷰 리스트 -- 현재까지 {{total}}개 리뷰 등록됨
-        </p>
-        <table class="list">
-            <tr>
-                {% for key, value in row1 %}
-                <td onclick="location.href='/view_review_detail/{{key}}/';" style="cursor:pointer;">
-                    <img src="{{ url_for('static', filename='image/' + value.img_path) }}" width="300px" height="300px" style="border-radius: 20px; margin: 15px; margin-bottom: 0px;"></td>
-                {% endfor %}
-                </tr>
-            <tr>
-            {% for key, value in row1 %}
-                <td>
-                    <div style="padding-left: 15px;">
-                        <p class="table-name">
-                            {{value.reviewTitle}}
-                        </p>
-                        <div class="star-review" style="font-size:20px; padding-top:ppx; padding-left: 15px; margin-bottom: 20px;">
-                            {% if value['rating'] == "1" %}
-                            ★☆☆☆☆
-                            {% endif %}
-                            {% if value['rating'] == "2" %}
-                            ★★☆☆☆
-                            {% endif %}
-                            {% if value['rating'] == "3" %}
-                            ★★★☆☆
-                            {% endif %}
-                            {% if value['rating'] == "4" %}
-                            ★★★★☆
-                            {% endif %}
-                            {% if value['rating'] == "5" %}
-                            ★★★★★
-                            {% endif %}  
-                         </div>
-                    </div>
-                </td>
-            {% endfor %}
-            </tr>
-            <tr>
-                {% for key, value in row2 %}
-                <td onclick="location.href='/view_review_detail/{{key}}/';" style="cursor:pointer;">
-                    <img src="{{ url_for('static', filename='image/' + value.img_path) }}" width="300px" height="300px" style="border-radius: 20px; margin: 15px; margin-bottom: 0px;"></td>
-                {% endfor %}
-                </tr>
-            <tr>
-            {% for key, value in row2 %}
-                <td>
-                    <div style="padding-left: 15px;">
-                        <p class="table-name">
-                            {{value.reviewTitle}}
-                        </p>
-                        <div class="star-review" style="font-size:20px; padding-top:ppx; padding-left: 15px; margin-bottom: 20px;">
-                            {% if value['rating'] == "1" %}
-                            ★☆☆☆☆
-                            {% endif %}
-                            {% if value['rating'] == "2" %}
-                            ★★☆☆☆
-                            {% endif %}
-                            {% if value['rating'] == "3" %}
-                            ★★★☆☆
-                            {% endif %}
-                            {% if value['rating'] == "4" %}
-                            ★★★★☆
-                            {% endif %}
-                            {% if value['rating'] == "5" %}
-                            ★★★★★
-                            {% endif %}  
-                         </div>
-                    </div>
-                </td>
-            {% endfor %}
-            </tr>
-        </table>
-        <!-- 페이지네이션을 위한 코드 시작 -->
-        <div class="page-wrap">
-            <div class="page-nation">
-                <ul style="list-style-type: none;">
-                    <li>
-                        {% for i in range(page_count)%}
-                        <a href="{{url_for('view_review', page=i)}}">{{i+1}}</a>
-                        {% endfor %} </li>
-                </ul>
-            </div>
-        </div>
+<p>
+    리뷰 리스트 -- 현재까지 {{pagination.total}}개 리뷰 등록됨
+</p>
+<div class="post-list">
+{% for key, value in posts %}
+    <div class="post-item" onclick="location.href='/view_review_detail/{{key}}/'">
+        <img src="{{ url_for('static', filename='image/' + value.img_path) }}" alt="이미지 없음" class="rounded-img-small">
+        <div class="star-review" style="float:left; width:100%; padding-top:5px;">
+            {% if value['rating'] == "1" %}
+            ★☆☆☆☆
+            {% endif %}
+            {% if value['rating'] == "2" %}
+            ★★☆☆☆
+            {% endif %}
+            {% if value['rating'] == "3" %}
+            ★★★☆☆
+            {% endif %}
+            {% if value['rating'] == "4" %}
+            ★★★★☆
+            {% endif %}
+            {% if value['rating'] == "5" %}
+            ★★★★★
+            {% endif %} </div>
+        <div class="post-item text">{{value.reviewTitle}}</div>
     </div>
-        
-                {%else%}
-                <p>등록된 리뷰가 없습니다.</p>
-                {% endif %}
+{% endfor %}
+</div>
 
-</main>
+{{ pagination.links | safe }}
+
 {% endblock section %}
+
