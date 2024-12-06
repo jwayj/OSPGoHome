@@ -816,7 +816,7 @@ table.list{
 /* 전체 컨테이너 설정 */
 .chat-container {
     display: flex;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 165px);
     font-family: Arial, sans-serif;
 }
 
