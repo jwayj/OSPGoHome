@@ -143,14 +143,15 @@ def view_item_detail(name):
     print("####data:",data)
     return render_template("view_detail.html", name=name, data=data)
 
-###리뷰 등록 화면
 @application.route("/reg_items")
 def reg_item():
     if 'id' in session:
-        return render_template("reg_items.html")
+        id=session['id']
+        return render_template("reg_items.html",id=id)
     flash("로그인이 필요합니다") #로그아웃 상태일 때 상품 등록 제한, 로그인페이지로 이동
     return redirect(url_for('login'))
-    
+
+###리뷰 등록 화면  
 @application.route("/reg_review_init/<name>/")
 def reg_review_init(name):
     if 'id' in session:
@@ -269,7 +270,7 @@ def register_user():
     
     if pw != pw_confirm:
         flash("비밀번호가 일치하지 않습니다.")
-        return redirect("/signup2")
+        return render_template("signup2.html")
     
     if DB.insert_user(data, pw_hash):
         return render_template("signup3.html", user_id=data['id'])
