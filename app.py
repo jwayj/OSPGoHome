@@ -70,8 +70,10 @@ def view_list(search_text):
         data={k: v for k,v in data.items() if addr in v['addr']}
 
     
-    for key, value in data.items():  # ToDo: 판매여부 필터
-        value['availability']="available"
+    # for key, value in data.items():  # ToDo: 판매여부 필터
+    #     value['availability']="available"
+    for name, item in data.items():
+        DB.update_availability_on_review(name)
 
     if availability!="all":
         data={k: v for k,v in data.items() if v['availability']==availability}
@@ -141,18 +143,20 @@ def view_item_detail(name):
     print("####data:",data)
     return render_template("view_detail.html", name=name, data=data)
 
-###리뷰 등록 화면
 @application.route("/reg_items")
 def reg_item():
     if 'id' in session:
-        return render_template("reg_items.html")
+        id=session['id']
+        return render_template("reg_items.html",id=id)
     flash("로그인이 필요합니다") #로그아웃 상태일 때 상품 등록 제한, 로그인페이지로 이동
     return redirect(url_for('login'))
-    
+
+###리뷰 등록 화면  
 @application.route("/reg_review_init/<name>/")
 def reg_review_init(name):
     if 'id' in session:
-        return render_template("reg_reviews.html", name=name)
+        id=session['id']
+        return render_template("reg_reviews.html", name=name,id=id)
     flash("로그인이 필요합니다") #로그아웃 상태일 때 리뷰 등록 제한, 로그인페이지로 이동
     return redirect(url_for('login'))
     
@@ -240,7 +244,7 @@ def login_user():
         session['id']=id_
         return redirect(url_for('home'))
     else:
-        flash("Wrong ID or PW!")
+        flash("아이디나 비밀번호가 틀렸습니다!")
         return render_template("login.html")
 def find_user(self, id_, pw_):
     users = self.db.child("user").get()
@@ -267,7 +271,7 @@ def register_user():
     
     if pw != pw_confirm:
         flash("비밀번호가 일치하지 않습니다.")
-        return redirect("/signup2")
+        return render_template("signup2.html")
     
     if DB.insert_user(data, pw_hash):
         return render_template("signup3.html", user_id=data['id'])
@@ -317,7 +321,7 @@ def like(name):
 @application.route('/unlike/<name>/', methods=['POST'])
 def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
-    return jsonify({'msg': '안좋아요 완료!'})
+    return jsonify({'msg': '좋아요 취소!'})
 
 ### 자릿수 포맷팅
 @application.template_filter('comma_format')
