@@ -89,11 +89,15 @@
         </div>
 
         <div style="display: flex; justify-content: flex-end;">
-            <button class="btn" onclick="location.href='/reg_review_init/{{name}}/';">
+            <button class="btn" 
+            {% if data['availability'] == "sold_out" %}
+            style="visibility:hidden" 
+            {% endif %}
+            onclick="location.href='/reg_review_init/{{name}}/';">
                 리뷰등록
             </button>
         </div>
-
+        
     </div>
 
    

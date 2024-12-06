@@ -130,10 +130,9 @@ def view_chat(opponent_id):
 def view_item_detail(name):
     print("###name:",name)
     data = DB.get_item_byname(str(name))
-    if DB.get_review_byname(name):
-        data['availability']="sold_out"
-    else:
-        data['availability']="available"
+    if data=="":
+        flash("삭제된 판매글입니다.")
+        return redirect(url_for("home"))
     print("####data:",data)
     return render_template("view_detail.html", name=name, data=data)
 
