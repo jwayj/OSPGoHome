@@ -70,8 +70,10 @@ def view_list(search_text):
         data={k: v for k,v in data.items() if addr in v['addr']}
 
     
-    for key, value in data.items():  # ToDo: 판매여부 필터
-        value['availability']="available"
+    # for key, value in data.items():  # ToDo: 판매여부 필터
+    #     value['availability']="available"
+    for name, item in data.items():
+        DB.update_availability_on_review(name)
 
     if availability!="all":
         data={k: v for k,v in data.items() if v['availability']==availability}

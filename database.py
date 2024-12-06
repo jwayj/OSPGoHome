@@ -20,11 +20,22 @@ class DBhandler:
             "gun":data['gun'],
             "img_path": img_path,
             "status": data['status'],
-            "directtransaction": data['directtransaction']
+            "directtransaction": data['directtransaction'],
+            "availability": "available"
         }
         self.db.child("item").child(name).set(item_info)
         print(data,img_path)
         return True
+    
+    def update_availability_on_review(self, name):
+        #리뷰 등록 확인
+        review = self.get_review_byname(name)
+        #상태 업데이트
+        if review:
+            availability="sold_out"
+        else:
+            availability="available"
+        self.db.child("item").child(name).update({"availability": availability})
     
     def get_items(self):
         items = self.db.child("item").get().val()
