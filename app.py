@@ -155,7 +155,8 @@ def reg_item():
 @application.route("/reg_review_init/<name>/")
 def reg_review_init(name):
     if 'id' in session:
-        return render_template("reg_reviews.html", name=name)
+        id=session['id']
+        return render_template("reg_reviews.html", name=name,id=id)
     flash("로그인이 필요합니다") #로그아웃 상태일 때 리뷰 등록 제한, 로그인페이지로 이동
     return redirect(url_for('login'))
     
