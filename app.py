@@ -243,7 +243,7 @@ def login_user():
         session['id']=id_
         return redirect(url_for('home'))
     else:
-        flash("Wrong ID or PW!")
+        flash("아이디나 비밀번호가 틀렸습니다!")
         return render_template("login.html")
 def find_user(self, id_, pw_):
     users = self.db.child("user").get()
@@ -320,7 +320,7 @@ def like(name):
 @application.route('/unlike/<name>/', methods=['POST'])
 def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
-    return jsonify({'msg': '안좋아요 완료!'})
+    return jsonify({'msg': '좋아요 취소!'})
 
 ### 자릿수 포맷팅
 @application.template_filter('comma_format')
