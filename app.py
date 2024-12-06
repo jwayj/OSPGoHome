@@ -69,12 +69,6 @@ def view_list(search_text):
     if addr!="all":
         data={k: v for k,v in data.items() if addr in v['addr']}
 
-    
-    # for key, value in data.items():  # ToDo: 판매여부 필터
-    #     value['availability']="available"
-    for name, item in data.items():
-        DB.update_availability_on_review(name)
-
     if availability!="all":
         data={k: v for k,v in data.items() if v['availability']==availability}
     
@@ -93,7 +87,7 @@ def view_list(search_text):
     page, per_page, offset = get_page_args(per_page=10)
     tot_count = len(data)
     data = dict(list(data.items())[offset:offset+per_page])
-    print(data.items())
+    #print(data.items())
 
     return render_template(
         "list.html",
