@@ -183,13 +183,29 @@ class DBhandler:
         user_rooms = self.db.child("UserRooms").child(user_id).get()
         last_chatted_user = ""
         last_chatted_time = 0
-        for room in user_rooms.each():
-            messages = self.db.child("RoomMessages").child(room.val()['roomId']).get()
-            for message in messages.each():
-                message_time = message.val()['timestamp']
-                if message_time > last_chatted_time:
-                    last_chatted_time = message_time
-                    last_chatted_user = room.key()
+        temp_user = ""
+        temp_time = 0
+        
+        try:
+            for room in user_rooms.each():
+                messages = self.db.child("RoomMessages").child(room.val()['roomId']).get()
                 
+                for message in messages.each():
+                    message_time = message.val()['timestamp']
+                    
+                    if message.val()['user'] == user_id:
+                        if message_time > last_chatted_time:
+                            last_chatted_time = message_time
+                            last_chatted_user = room.key()
+                    elif last_chatted_user == "":
+                        if message_time > last_chatted_time:
+                            temp_time = message_time
+                            temp_user = room.key()
+            
+            if last_chatted_user == "":
+                last_chatted_user = temp_user
+                last_chatted_time = temp_time
+        except:
+            return ""
         return last_chatted_user
             

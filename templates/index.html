@@ -27,7 +27,8 @@
       
             <ul class = "top_menu">
                {% if session['id'] %}
-               <li><a href="/logout"><b style="color: #2E669E;">{{session['id']}}</b><b>&nbsp;님 반갑습니다!</b> &nbsp;&nbsp;logout</a></li>
+               <li><p><b style="color: #2E669E;">{{session['id']}}</b><b>&nbsp;님 반갑습니다!&nbsp;&nbsp;&nbsp;</b><p></li>
+               <li><a href="/logout">logout</a></li>
                <li><a href="/chat">메시지</a></li>
                {% else %}
                <li><a href="/login">login</a></li>
@@ -44,7 +45,11 @@
          </nav>  
       </header>
    </body>
-
+{% with mesg = get_flashed_messages() %}
+{% if mesg !=[] %}
+    <script>alert("{{ mesg[0] }}")</script>
+{% endif %}
+{% endwith %}
    <section>
       {% block section %}
       {% endblock section %}

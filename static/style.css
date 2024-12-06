@@ -863,9 +863,10 @@ table.list{
     background-color: red; /* 배경색 */
     color: white; /* 글자색 */
     border-radius: 10px; /* 둥글게 */
-    padding: 2px 6px; /* 여백 */
+    padding: 3px 7px; /* 여백 */
     font-size: 12px; /* 글자 크기 */
     margin-left: 10px; /* 왼쪽 여백 */
+    margin-right: 2.5%;
     vertical-align: middle; /* 수직 정렬 */
 }
 .chat-hidden {

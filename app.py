@@ -118,6 +118,10 @@ def view_list(search_text):
 def chat():
     last_chatted_user = DB.get_last_chatroom(session['id'])
     print(last_chatted_user)
+    if last_chatted_user == "":
+        flash("채팅 내역이 존재하지 않습니다.")
+        return redirect(url_for("home"))
+    
     return redirect(url_for("view_chat", opponent_id=last_chatted_user))
     
 @application.route("/chat/<opponent_id>")
@@ -234,7 +238,7 @@ def login_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     if DB.find_user(id_,pw_hash):
         session['id']=id_
-        return redirect(url_for('view_list'))
+        return redirect(url_for('home'))
     else:
         flash("Wrong ID or PW!")
         return render_template("login.html")
@@ -251,7 +255,7 @@ def find_user(self, id_, pw_):
 @application.route("/logout")
 def logout_user():
     session.clear()
-    return redirect(url_for('view_list'))
+    return redirect(url_for('home'))
 
 ###회원가입
 @application.route("/signup_post", methods=['POST'])
