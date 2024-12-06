@@ -37,10 +37,19 @@ def home():
         posts=items.items()   # Items as rows of 5
     )
 
+###상단바 검색 시 실행
+@application.route("/search", methods=["GET"])
+def search_item():
+    search = request.args.get("search")
+    if search=="": search="getallitems"
+    return redirect(url_for("view_list", search_text=search))
+    
+
 ###상품 전체조회 화면
-@application.route("/list")
-def view_list():
-    page = request.args.get("page", 0, type=int)
+@application.route("/list/<search_text>")
+def view_list(search_text):
+    if search_text=="getallitems": search_text=""
+    
     status = request.args.get("status", "all")
     addr = request.args.get("addr","all")
     price_order = request.args.get("price", "all")
@@ -58,14 +67,11 @@ def view_list():
     if status != "all":
         data={k: v for k,v in data.items() if v['status']==status}
     if addr!="all":
-        data={k: v for k,v in data.items() if v['addr']==addr}
+        data={k: v for k,v in data.items() if addr in v['addr']}
 
     
-    for key, value in data.items():
-        if DB.get_review_byname(key):
-            value['availability']="sold_out"
-        else:
-            value['availability']="available"
+    for key, value in data.items():  # ToDo: 판매여부 필터
+        value['availability']="available"
 
     if availability!="all":
         data={k: v for k,v in data.items() if v['availability']==availability}
@@ -78,6 +84,9 @@ def view_list():
         data=data
     # print("data 출력",data)
     # print("debug data",data, "지역도 출력", addr, "상태도 출력",status)
+    
+    if search_text != "":
+        data={k: v for k,v in data.items() if search_text in v['addr'] or search_text in v['name'] or search_text in v['seller'] or search_text in v['explanation'] }
 
     page, per_page, offset = get_page_args(per_page=10)
     tot_count = len(data)
@@ -91,6 +100,7 @@ def view_list():
         addr=addr,
         price_order=price_order,
         availability=availability,
+        search_text=search_text,
         pagination=Pagination(
             page=page,  # 지금 우리가 보여줄 페이지는 1 또는 2, 3, 4, ... 페이지인데,
             total=tot_count,  # 총 몇 개의 포스트인지를 미리 알려주고,

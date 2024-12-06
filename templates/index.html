@@ -17,8 +17,8 @@
          <nav id="topBar">
             <a href ="/home"><img src="{{ url_for('static', filename='image/logo.png') }}" title="로고" width="200px"></a>
                <div id="search" style="height: 100%; width: 40%;">
-                  <form class="search_box">
-                     <input type="text" id="user-search" name="search" placeholder="SEARCH">
+                  <form class="search_box" action="/search" method="get">
+                     <input type="search" id="user-search" name="search" placeholder="SEARCH" value={{search_text}}>
                      <button type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                      </button>
@@ -37,7 +37,7 @@
       
          <nav class="menuBar">
             <ul>
-               <li> <a href="/list">상품</a></li>
+               <li> <a href="/list/getallitems">상품</a></li>
                <li> <a href="/reg_items">상품 등록</a></li>
                <li> <a href="/review_list">리뷰 조회</a></li>
             </ul>

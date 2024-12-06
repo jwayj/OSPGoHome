@@ -9,8 +9,10 @@
         const addr = document.getElementById("addr").value;
         const availability=document.getElementById("availability").value;
 
+        let search_text = "{{search_text}}"
+        if(search_text=="") search_text="getallitems"
         let queryParams = `?price=${price}&status=${status}&addr=${addr}&availability=${availability}`;
-        window.location.href = "/list" + queryParams;
+        window.location.href = "/list/" + search_text + queryParams;
     }
 
     // 필터 적용 버튼
