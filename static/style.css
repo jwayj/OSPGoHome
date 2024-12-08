@@ -53,8 +53,8 @@ table.info {
 
 .rounded-img-small {
     float: left;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
     border-radius: 15px; /* 모서리 둥글게 */
 }
@@ -86,7 +86,7 @@ table.info {
 
 .post-item {
     width: 200px;
-    margin: 2%;
+    margin: 1%;
     cursor: pointer;
 }
 

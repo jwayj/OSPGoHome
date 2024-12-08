@@ -101,8 +101,8 @@
             {% for key, value in posts %}
                 <div class="post-item" onclick="location.href='/view_detail/{{key}}/'">
                     <img src="{{ url_for('static', filename='image/' + value.img_path) }}" alt={{key}} class="rounded-img-small">
-                    <div class="post-item text" style="font-size:21px; margin-top:5px; font-family:'GMarketSansBold'">{{key}}</div>
-                    <div class="post-item text">{{ value.price | comma_format }} 원</div>
+                    <div class="post-item text" style="font-size:21px; margin-top:10px; margin-left: 8px; font-family:'GMarketSansBold'">{{key}}</div>
+                    <div class="post-item text" style="margin-left: 8px;">{{ value.price | comma_format }} 원</div>
                 </div>
             {% endfor %}
             </div>
