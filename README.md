@@ -42,6 +42,12 @@
 ## 📋 API 
 
 <img width="1171" alt="image" src="https://github.com/user-attachments/assets/ac5829f2-1848-446f-9771-d90906c68af0" />
+<img width="1171" alt="image" src="https://github.com/user-attachments/assets/059be067-b13f-41ec-a8a7-e389fc359941" />
+<img width="1171" alt="image" src="https://github.com/user-attachments/assets/377327f9-48ee-4405-8d6c-912002450d3f" />
+<img width="1171" alt="image" src="https://github.com/user-attachments/assets/cedd664c-55be-4041-83b2-60338519a442" />
+<img width="1171" alt="image" src="https://github.com/user-attachments/assets/c7833d66-7ab1-44cd-b9e1-2f8498a20ac0" />
+
+
 
 
 
