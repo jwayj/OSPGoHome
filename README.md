@@ -97,7 +97,7 @@
 
 ## 🥗 Contributors
 
-|Front|Front|Front|Back|Back|Back|
+|팀장|팀원|팀원|팀원|팀원|팀원|
 |-|-|-|-|-|-|
 |[윤현진](https://github.com/hjyoon5790)|[강민서](https://github.com/childstone)|[김윤서](https://github.com/Westyoon)|[성은재](https://github.com/dabiih)|[좌연주](https://github.com/jwayj)|[전희원](https://github.com/isc10120)|
 
