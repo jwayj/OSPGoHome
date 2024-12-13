@@ -2,8 +2,8 @@
 
 오픈SW플랫폼 "**4시귀가희망**"팀의 팀프로젝트 "**귀가 후 마켓**" 입니다. <br><br>
 
-[기술블로그](https://repeated-beluga-c1a.notion.site/OSP-14d3ef0c46d180c4b094fc4c0c1848ef) <<click here<br>
-[기술보고서](https://whimsical-saturday-f75.notion.site/SW-158cd59241b380929a04c07f13374dc6) <<click here<br>
+웹 어플리케이션 ‘귀가 후 마켓’ 은 중고 거래를 돕는 웹으로, 다양한 사용자가 자신이 가지고 있는 상품의 정보를 게시하면 구매하려는 사용자가 판매자에게 직접 연락하여 중고 거래를 할 수 있도록 합니다.
+
 
 ## 🥬 Key Features
 
@@ -126,3 +126,10 @@ Flask, Firebase
 <b>Cowork</b>
 Notion, Figma, GitHub, Git
 <br>
+
+
+## ⚒️ Tech Blog
+
+
+[기술블로그](https://repeated-beluga-c1a.notion.site/OSP-14d3ef0c46d180c4b094fc4c0c1848ef) <<click here<br>
+[기술보고서](https://whimsical-saturday-f75.notion.site/SW-158cd59241b380929a04c07f13374dc6) <<click here<br>
